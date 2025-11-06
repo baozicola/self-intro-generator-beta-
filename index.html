@@ -110,7 +110,7 @@
         .input-group input[type="range"] { flex-grow: 1; height: 20px; cursor: pointer; min-width: 100px; }
         .radio-group { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: var(--bg-input); border: 1px solid var(--border-input); border-radius: 6px; padding: 10px; }
         .radio-group label { margin: 0; font-weight: normal; display: flex; align-items: center; gap: 4px; cursor: pointer; font-size: 0.9rem; }
-        .color-control-row { display: flex; flex-wrap: wrap; gap: 15px; align-items: flex-start; min-width: 0; }
+        。color-control-row { display: flex; flex-wrap: wrap; gap: 15px; align-items: flex-start; min-width: 0; }
         .color-control-group { flex: 1; min-width: 150px; }
         .checkbox-group { display: flex; align-items: center; gap: 8px; font-weight: normal; cursor: pointer; }
         .checkbox-group label { display: flex; align-items: center; gap: 8px; font-weight: normal; cursor: pointer; margin: 0; }
@@ -122,7 +122,7 @@
         .tab-content { display: none; } .tab-content.active { display: block; }
         .gradient-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .gradient-angle-control { grid-column: 1 / -1; }
-        .preview-header { padding: 30px 15px; text-align: center; border-radius: 16px; transition: all var(--transition-speed) ease; overflow-wrap: break-word; }
+        。preview-header { padding: 30px 15px; text-align: center; border-radius: 16px; transition: all var(--transition-speed) ease; overflow-wrap: break-word; }
         #preview-avatar { width: 90px; height: 90px; border: 4px solid var(--bg-preview-page); box-shadow: 0 4px 12px var(--shadow-light); object-fit: cover; background-color: #fff; transition: all var(--transition-speed) ease; }
         #preview-nickname { margin: 12px 0 5px; font-size: 1.6rem; font-weight: 700; color: var(--text-primary); transition: color var(--transition-speed) ease; }
         #preview-subtitle { margin: 0 0 8px; font-size: 1rem; font-weight: 400; color: var(--text-primary); opacity: 0.7; transition: color var(--transition-speed) ease, margin var(--transition-speed) ease; }
@@ -240,37 +240,37 @@
         .icon-grid-item:hover { background-color: var(--border-color); }
         #tag-manager-list { display: flex; flex-direction: column; gap: 10px; max-height: 250px; overflow-y: auto; padding: 10px; border: 1px solid var(--border-input); border-radius: 6px; background-color: var(--bg-input); margin-bottom: 15px; }
         .tag-manager-item { display: flex; align-items: center; gap: 8px; background-color: var(--bg-section); padding: 8px; border-radius: 4px; border: 1px solid var(--border-color); }
-        .tag-manager-item .tag-icon-btn { flex-shrink: 0; width: 32px; height: 32px; padding: 0; font-size: 1.2rem; }
-        .tag-manager-item .tag-text-input { flex-grow: 1; border: none; background: transparent; padding: 4px 6px; }
-        .tag-manager-item .tag-delete-btn { flex-shrink: 0; width: 32px; height: 32px; padding: 0; }
+        .tag-manager-item 。tag-icon-btn { flex-shrink: 0; width: 32px; height: 32px; padding: 0; font-size: 1.2rem; }
+        .tag-manager-item 。tag-text-input { flex-grow: 1; border: none; background: transparent; padding: 4px 6px; }
+        .tag-manager-item 。tag-delete-btn { flex-shrink: 0; width: 32px; height: 32px; padding: 0; }
         .empty-tag-list { text-align: center; color: var(--text-placeholder); padding: 20px 0; }
         #custom-width-controls { display: none; margin-top: 10px; border: 1px solid var(--border-input); border-radius: 6px; padding: 10px; background: var(--bg-input); }
         .width-presets { display: flex; gap: 8px; margin-bottom: 10px; }
         #custom-width-input { max-width: 100px; }
-        @keyframes toast-in { to { opacity: 1; transform: translateX(0); } }
-        @keyframes toast-out { to { opacity: 0; transform: translateX(100%); } }
+        @keyframes toast-in { 到 { opacity: 1; transform: translateX(0); } }
+        @keyframes toast-out { 到 { opacity: 0; transform: translateX(100%); } }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } 到 { opacity: 1; transform: translateY(0); } }
         @keyframes fadeInScale { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
-        @keyframes fadeOutScale { from { opacity: 1; transform: scale(1); } to { opacity: 0; transform: scale(0.9); } }
+        @keyframes fadeOutScale { from { opacity: 1; transform: scale(1); } 到 { opacity: 0; transform: scale(0.9); } }
         .preview-header, .image-gallery figure { animation: fadeIn 0.4s ease forwards; }
         #mobile-edit-toggle { display: none; }
         @media (max-width: 768px) {
-            .app-header-title { display: none; } 
+            。app-header-title { display: none; } 
             #mobile-edit-toggle { display: block; z-index: 201; }
-            .resizer { display: none; }
-            .app-container { flex-direction: column; }
-            .editor-panel {
+            。resizer { display: none; }
+            。app-container { flex-direction: column; }
+            。editor-panel {
                 position: fixed; top: var(--header-height); left: 0; width: 85%; max-width: 350px;
                 height: calc(100vh - var(--header-height)); z-index: 200;
                 transform: translateX(-100%); transition: transform 0.3s ease-in-out;
-                box-shadow: 4px 0 15px rgba(0,0,0,0.1); border-right: 1px solid var(--border-color);
+                box-shadow: 4px 0 15px rgba(0，0,0，0.1); border-right: 1px solid var(--border-color);
             }
-            .editor-panel.is-open { transform: translateX(0); }
-            .preview-panel { width: 100%; height: calc(100vh - var(--header-height)); padding: 20px 10px; }
+            。editor-panel。is-open { transform: translateX(0); }
+            。preview-panel { width: 100%; height: calc(100vh - var(--header-height)); padding: 20px 10px; }
             body.editor-open::after {
                 content: ''; position: fixed; top: var(--header-height); left: 0; width: 100%;
-                height: calc(100vh - var(--header-height)); background: rgba(0,0,0,0.4); z-index: 199;
+                height: calc(100vh - var(--header-height)); background: rgba(0，0，0，0.4); z-index: 199;
                 opacity: 1; pointer-events: auto; transition: opacity 0.3s ease-in-out;
             }
         }
@@ -300,11 +300,11 @@
                     <div class="form-group" style="display: flex; gap: 10px;"> <button id="import-btn" class="btn btn-secondary">导入配置</button> <button id="export-btn" class="btn btn-secondary">导出配置</button> <button id="export-template-btn" class="btn btn-secondary">存为模板</button></div>
                     <div class="form-group">
                         <div class="checkbox-group" style="margin-bottom: 10px;">
-                            <label><input type="checkbox" id="hd-export-toggle"> 超清导出 (x3)</label>
+                            <label><input 输入="checkbox" id="hd-export-toggle"> 超清导出 (x3)</label>
                             <span id="export-size-preview" style="font-size: 0.8rem; color: var(--text-secondary);"></span>
                         </div>
                         <div class="checkbox-group" style="margin-bottom: 10px;">
-                            <label><input type="checkbox" id="custom-width-toggle"> 自定义宽度</label>
+                            <label><input 输入="checkbox" id="custom-width-toggle"> 自定义宽度</label>
                         </div>
                         <div id="custom-width-controls">
                             <label>预设:</label>
@@ -315,7 +315,7 @@
                             </div>
                             <label>手动输入:</label>
                             <div class="input-group">
-                                <input type="number" id="custom-width-input" placeholder="例如 800">
+                                <input 输入="number" id="custom-width-input" placeholder="例如 800">
                                 <span style="padding: 0 10px; background: var(--bg-section); border-left: 1px solid var(--border-input); line-height: 38px;">px</span>
                             </div>
                         </div>
@@ -329,33 +329,33 @@
                     <div class="form-group">
                         <button id="reset-btn" class="btn btn-danger">恢复默认模板</button>
                     </div>
-                    <input type="file" id="config-file-input" accept=".json" style="display: none;">
+                    <input 输入="file" id="config-file-input" accept=".json" style="display: none;">
                 </div>
             </fieldset>
 
             <fieldset class="editor-section" id="personal-info-section">
                 <legend>个人信息</legend>
                 <div class="section-content">
-                    <div class="form-group"><label>昵称:</label><input type="text" data-state-key="personalInfo.nickname" data-preview-target="#preview-nickname"></div>
-                    <div class="form-group"><label>昵称颜色:</label><div class="input-group"><input type="color" data-state-key="personalInfo.nicknameColor"><input type="text" class="color-hex-input" data-color-sync-key="personalInfo.nicknameColor"><button class="btn btn-default btn-small" data-reset-key="personalInfo.nicknameColor">重置</button></div></div>
-                    <div class="form-group"><label>副标题 (可选):</label><input type="text" data-state-key="personalInfo.subtitle" data-preview-target="#preview-subtitle"></div>
-                    <div class="form-group"><label>副标题颜色:</label><div class="input-group"><input type="color" data-state-key="personalInfo.subtitleColor"><input type="text" class="color-hex-input" data-color-sync-key="personalInfo.subtitleColor"><button class="btn btn-default btn-small" data-reset-key="personalInfo.subtitleColor">重置</button></div></div>
+                    <div class="form-group"><label>昵称:</label><input 输入="text" data-state-key="personalInfo.nickname" data-preview-target="#preview-nickname"></div>
+                    <div class="form-group"><label>昵称颜色:</label><div class="input-group"><input 输入="color" data-state-key="personalInfo.nicknameColor"><input 输入="text" class="color-hex-input" data-color-sync-key="personalInfo.nicknameColor"><button class="btn btn-default btn-small" data-reset-key="personalInfo.nicknameColor">重置</button></div></div>
+                    <div class="form-group"><label>副标题 (可选):</label><input 输入="text" data-state-key="personalInfo.subtitle" data-preview-target="#preview-subtitle"></div>
+                    <div class="form-group"><label>副标题颜色:</label><div class="input-group"><input 输入="color" data-state-key="personalInfo.subtitleColor"><input 输入="text" class="color-hex-input" data-color-sync-key="personalInfo.subtitleColor"><button class="btn btn-default btn-small" data-reset-key="personalInfo.subtitleColor">重置</button></div></div>
                     <div class="form-group"><label>简介 (可选):</label><textarea data-state-key="personalInfo.bio" rows="3" data-preview-target="#preview-bio"></textarea></div>
-                    <div class="form-group"><label>简介颜色:</label><div class="input-group"><input type="color" data-state-key="personalInfo.bioColor"><input type="text" class="color-hex-input" data-color-sync-key="personalInfo.bioColor"><button class="btn btn-default btn-small" data-reset-key="personalInfo.bioColor">重置</button></div></div>
+                    <div class="form-group"><label>简介颜色:</label><div class="input-group"><input 输入="color" data-state-key="personalInfo.bioColor"><input type="text" class="color-hex-input" data-color-sync-key="personalInfo.bioColor"><button class="btn btn-default btn-small" data-reset-key="personalInfo.bioColor">重置</button></div></div>
                     <hr class="separator">
                     <div class="form-group">
                         <label>标签管理器:</label>
                         <div id="tag-manager-list"></div>
                         <div class="input-group simple" style="margin-top: 10px;">
-                            <input type="text" id="new-tag-text-input" placeholder="输入新标签文字...">
+                            <input 输入="text" id="new-tag-text-input" placeholder="输入新标签文字...">
                             <button id="add-new-tag-btn" class="btn btn-default btn-small">添加标签</button>
                         </div>
                     </div>
                     <div class="form-group"><label>标签样式:</label><div class="color-control-row"><div class="color-control-group"><label>背景</label><div class="input-group"><input type="color" data-state-key="personalInfo.tagBgColor"><input type="text" class="color-hex-input" data-color-sync-key="personalInfo.tagBgColor"><button class="btn btn-default btn-small" data-reset-key="personalInfo.tagBgColor">重置</button></div></div><div class="color-control-group"><label>文字</label><div class="input-group"><input type="color" data-state-key="personalInfo.tagTextColor"><input type="text" class="color-hex-input" data-color-sync-key="personalInfo.tagTextColor"><button class="btn btn-default btn-small" data-reset-key="personalInfo.tagTextColor">重置</button></div></div></div></div>
                     <hr class="separator">
-                    <div class="form-group"><label>头像上传:</label><input type="file" id="avatar-upload" accept="image/*"></div>
+                    <div class="form-group"><label>头像上传:</label><input 输入="file" id="avatar-upload" accept="image/*"></div>
                     <div class="form-group"><label>头像形状:</label><div class="radio-group"><label><input type="radio" name="avatarShape" value="50%" data-state-key="personalInfo.avatarShape">圆形</label><label><input type="radio" name="avatarShape" value="16px" data-state-key="personalInfo.avatarShape">圆角</label><label><input type="radio" name="avatarShape" value="0px" data-state-key="personalInfo.avatarShape">方形</label></div></div>
-                    <div class="color-control-row"><div class="color-control-group"><label>头像边框(px):</label><input type="range" data-state-key="personalInfo.avatarBorderSize" min="0" max="10" step="1"></div><div class="color-control-group"><label>边框颜色:</label><div class="input-group"><input type="color" data-state-key="personalInfo.avatarBorderColor"><input type="text" class="color-hex-input" data-color-sync-key="personalInfo.avatarBorderColor"><button class="btn btn-default btn-small" data-reset-key="personalInfo.avatarBorderColor">重置</button></div></div></div>
+                    <div class="color-control-row"><div class="color-control-group"><label>头像边框(px):</label><input 输入="range" data-state-key="personalInfo.avatarBorderSize" min="0" max="10" step="1"></div><div class="color-control-group"><label>边框颜色:</label><div class="input-group"><input type="color" data-state-key="personalInfo.avatarBorderColor"><input type="text" class="color-hex-input" data-color-sync-key="personalInfo.avatarBorderColor"><button class="btn btn-default btn-small" data-reset-key="personalInfo.avatarBorderColor">重置</button></div></div></div>
                 </div>
             </fieldset>
 
@@ -363,15 +363,15 @@
                 <legend>页面与头部样式</legend>
                 <div class="section-content">
                     <div class="tabs"><button class="tab-btn" data-tab="page-bg-solid">纯色/图片</button><button class="tab-btn active" data-tab="page-bg-gradient">渐变</button></div>
-                    <div id="page-bg-solid" class="tab-content"><div class="form-group"><label>页面背景颜色:</label><div class="input-group"><input type="color" data-state-key="pageStyles.pageBgSolidColor"><input type="text" class="color-hex-input" data-color-sync-key="pageStyles.pageBgSolidColor"></div></div><div class="form-group"><label>背景图 (可选):</label><div class="input-group simple"><input type="file" id="page-bg-upload" accept="image/*" style="width:100%"><button id="clear-page-bg-btn" class="btn btn-default btn-small">清除</button></div></div>
-                    <div id="page-image-controls" style="display:none;"><div class="form-group"><label>图片遮罩颜色:</label><div class="input-group"><input type="color" data-state-key="pageStyles.pageOverlayColor"><input type="text" class="color-hex-input" data-color-sync-key="pageStyles.pageOverlayColor"></div></div><div class="form-group"><label>图片遮罩不透明度:</label><input type="range" data-state-key="pageStyles.pageOverlayOpacity" min="0" max="1" step="0.05"></div></div></div>
-                    <div id="page-bg-gradient" class="tab-content active"><div class="gradient-controls"><div class="form-group"><label>起始颜色:</label><div class="input-group"><input type="color" data-state-key="pageStyles.pageBgGradientStart"><input type="text" class="color-hex-input" data-color-sync-key="pageStyles.pageBgGradientStart"></div></div><div class="form-group"><label>结束颜色:</label><div class="input-group"><input type="color" data-state-key="pageStyles.pageBgGradientEnd"><input type="text" class="color-hex-input" data-color-sync-key="pageStyles.pageBgGradientEnd"></div></div><div class="gradient-angle-control form-group"><label>角度 (<span class="angle-value">135</span>°):</label><input type="range" data-state-key="pageStyles.pageBgGradientAngle" min="0" max="360" step="1"></div></div></div>
+                    <div id="page-bg-solid" class="tab-content"><div class="form-group"><label>页面背景颜色:</label><div class="input-group"><input 输入="color" data-state-key="pageStyles.pageBgSolidColor"><input 输入="text" class="color-hex-input" data-color-sync-key="pageStyles.pageBgSolidColor"></div></div><div class="form-group"><label>背景图 (可选):</label><div class="input-group simple"><input type="file" id="page-bg-upload" accept="image/*" style="width:100%"><button id="clear-page-bg-btn" class="btn btn-default btn-small">清除</button></div></div>
+                    <div id="page-image-controls" style="display:none;"><div class="form-group"><label>图片遮罩颜色:</label><div class="input-group"><input 输入="color" data-state-key="pageStyles.pageOverlayColor"><input 输入="text" class="color-hex-input" data-color-sync-key="pageStyles.pageOverlayColor"></div></div><div class="form-group"><label>图片遮罩不透明度:</label><input type="range" data-state-key="pageStyles.pageOverlayOpacity" min="0" max="1" step="0.05"></div></div></div>
+                    <div id="page-bg-gradient" class="tab-content active"><div class="gradient-controls"><div class="form-group"><label>起始颜色:</label><div class="input-group"><input 输入="color" data-state-key="pageStyles.pageBgGradientStart"><input type="text" class="color-hex-input" data-color-sync-key="pageStyles.pageBgGradientStart"></div></div><div class="form-group"><label>结束颜色:</label><div class="input-group"><input type="color" data-state-key="pageStyles.pageBgGradientEnd"><input type="text" class="color-hex-input" data-color-sync-key="pageStyles.pageBgGradientEnd"></div></div><div class="gradient-angle-control form-group"><label>角度 (<span class="angle-value">135</span>°):</label><input type="range" data-state-key="pageStyles.pageBgGradientAngle" min="0" max="360" step="1"></div></div></div>
                     <hr class="separator">
                     <div class="tabs"><button class="tab-btn" data-tab="header-bg-solid">纯色</button><button class="tab-btn active" data-tab="header-bg-gradient">渐变</button></div>
                     <div id="header-bg-solid" class="tab-content"><div class="form-group"><label>头部背景颜色:</label><div class="input-group"><input type="color" data-state-key="pageStyles.headerBgColor"><input type="text" class="color-hex-input" data-color-sync-key="pageStyles.headerBgColor"></div></div></div>
-                    <div id="header-bg-gradient" class="tab-content active"><div class="gradient-controls"><div class="form-group"><label>起始颜色:</label><div class="input-group"><input type="color" data-state-key="pageStyles.headerBgGradientStart"><input type="text" class="color-hex-input" data-color-sync-key="pageStyles.headerBgGradientStart"></div></div><div class="form-group"><label>结束颜色:</label><div class="input-group"><input type="color" data-state-key="pageStyles.headerBgGradientEnd"><input type="text" class="color-hex-input" data-color-sync-key="pageStyles.headerBgGradientEnd"></div></div><div class="gradient-angle-control form-group"><label>角度 (<span class="angle-value">135</span>°):</label><input type="range" data-state-key="pageStyles.headerBgGradientAngle" min="0" max="360" step="1"></div></div></div>
-                    <div class="form-group"><label>头部文字颜色:</label><div class="input-group"><input type="color" data-state-key="pageStyles.headerTextColor"><input type="text" class="color-hex-input" data-color-sync-key="pageStyles.headerTextColor"></div></div>
-                    <div class="form-group"><label>头部不透明度:</label><input type="range" data-state-key="pageStyles.headerOpacity" min="0" max="1" step="0.05"></div>
+                    <div id="header-bg-gradient" class="tab-content active"><div class="gradient-controls"><div class="form-group"><label>起始颜色:</label><div class="input-group"><input 输入="color" data-state-key="pageStyles.headerBgGradientStart"><input 输入="text" class="color-hex-input" data-color-sync-key="pageStyles.headerBgGradientStart"></div></div><div class="form-group"><label>结束颜色:</label><div class="input-group"><input 输入="color" data-state-key="pageStyles.headerBgGradientEnd"><input type="text" class="color-hex-input" data-color-sync-key="pageStyles.headerBgGradientEnd"></div></div><div class="gradient-angle-control form-group"><label>角度 (<span class="angle-value">135</span>°):</label><input type="range" data-state-key="pageStyles.headerBgGradientAngle" min="0" max="360" step="1"></div></div></div>
+                    <div class="form-group"><label>头部文字颜色:</label><div class="input-group"><input 输入="color" data-state-key="pageStyles.headerTextColor"><input 输入="text" class="color-hex-input" data-color-sync-key="pageStyles.headerTextColor"></div></div>
+                    <div class="form-group"><label>头部不透明度:</label><input 输入="range" data-state-key="pageStyles.headerOpacity" min="0" max="1" step="0.05"></div>
                 </div>
             </fieldset>
             
@@ -389,28 +389,28 @@
                     <div class="form-group" style="border: 1px solid var(--border-input); border-radius: 6px; padding: 10px; background: var(--bg-input);">
                         <div class="form-group"><label>样式:</label><select data-state-key="globalCardStyles.borderStyle"><option value="none">无</option><option value="solid">实线</option><option value="dashed">虚线</option><option value="dotted">点状</option></select></div>
                         <div class="color-control-row">
-                            <div class="color-control-group"><label>粗细(px):</label><input type="range" data-state-key="globalCardStyles.borderWidth" min="0" max="10" step="1"></div>
-                            <div class="color-control-group"><label>颜色:</label><div class="input-group"><input type="color" data-state-key="globalCardStyles.borderColor"><input type="text" class="color-hex-input" data-color-sync-key="globalCardStyles.borderColor"></div></div>
+                            <div class="color-control-group"><label>粗细(px):</label><input 输入="range" data-state-key="globalCardStyles.borderWidth" min="0" max="10" step="1"></div>
+                            <div class="color-control-group"><label>颜色:</label><div class="input-group"><input 输入="color" data-state-key="globalCardStyles.borderColor"><input 输入="text" class="color-hex-input" data-color-sync-key="globalCardStyles.borderColor"></div></div>
                         </div>
                     </div>
                     <hr class="separator">
-                    <div class="form-group"><label>对齐:</label><div class="radio-group"><label><input type="radio" name="gCardAlign" value="left" data-state-key="globalCardStyles.textAlign">居左</label><label><input type="radio" name="gCardAlign" value="center" data-state-key="globalCardStyles.textAlign">居中</label><label><input type="radio" name="gCardAlign" value="right" data-state-key="globalCardStyles.textAlign">居右</label></div></div>
-                    <div class="form-group"><label>行高:</label><div class="radio-group"><label><input type="radio" name="gCardLineHeight" value="1.4" data-state-key="globalCardStyles.lineHeight">紧凑</label><label><input type="radio" name="gCardLineHeight" value="1.5" data-state-key="globalCardStyles.lineHeight">中等</label><label><input type="radio" name="gCardLineHeight" value="1.6" data-state-key="globalCardStyles.lineHeight">宽松</label></div></div>
+                    <div class="form-group"><label>对齐:</label><div class="radio-group"><label><input 输入="radio" name="gCardAlign" value="left" data-state-key="globalCardStyles.textAlign">居左</label><label><input type="radio" name="gCardAlign" value="center" data-state-key="globalCardStyles.textAlign">居中</label><label><input type="radio" name="gCardAlign" value="right" data-state-key="globalCardStyles.textAlign">居右</label></div></div>
+                    <div class="form-group"><label>行高:</label><div class="radio-group"><label><input 输入="radio" name="gCardLineHeight" value="1.4" data-state-key="globalCardStyles.lineHeight">紧凑</label><label><input 输入="radio" name="gCardLineHeight" value="1.5" data-state-key="globalCardStyles.lineHeight">中等</label><label><input 输入="radio" name="gCardLineHeight" value="1.6" data-state-key="globalCardStyles.lineHeight">宽松</label></div></div>
                     <hr class="separator">
                     <div class="form-group">
                         <label>字体:</label>
                         <div class="font-controls">
-                            <input type="text" id="font-search-input" placeholder="搜索本地字体..." style="margin-bottom: 5px;">
+                            <input 输入="text" id="font-search-input" placeholder="搜索本地字体..." style="margin-bottom: 5px;">
                             <select id="font-family-select" data-state-key="globalCardStyles.fontFamily"></select>
                             <div class="buttons">
                                 <button id="load-local-fonts-btn" class="btn btn-default">加载本地</button>
                                 <button id="upload-font-btn" class="btn btn-default">上传字体</button>
                             </div>
-                            <input type="file" id="font-upload-input" accept=".ttf,.woff,.woff2,.otf" style="display: none;">
+                            <input 输入="file" id="font-upload-input" accept=".ttf,.woff,.woff2,.otf" style="display: none;">
                         </div>
                     </div>
                     <div class="form-group"> <label>字号:</label> <select data-state-key="globalCardStyles.fontSize"> <option value="0.9rem">小</option> <option value="1rem" selected>中 (默认)</option> <option value="1.1rem">大</option> </select> </div>
-                    <div class="color-control-row"><div class="color-control-group"><label>文字描边(px):</label><input type="range" data-state-key="globalCardStyles.textStrokeWidth" min="0" max="5" step="0.5"></div><div class="color-control-group"><label>描边颜色:</label><div class="input-group"><input type="color" data-state-key="globalCardStyles.textStrokeColor"><input type="text" class="color-hex-input" data-color-sync-key="globalCardStyles.textStrokeColor"></div></div></div>
+                    <div class="color-control-row"><div class="color-control-group"><label>文字描边(px):</label><input 输入="range" data-state-key="globalCardStyles.textStrokeWidth" min="0" max="5" step="0.5"></div><div class="color-control-group"><label>描边颜色:</label><div class="input-group"><input type="color" data-state-key="globalCardStyles.textStrokeColor"><input type="text" class="color-hex-input" data-color-sync-key="globalCardStyles.textStrokeColor"></div></div></div>
                 </div>
             </fieldset>
 
@@ -431,7 +431,7 @@
         <main class="preview-panel" id="preview-panel"> <div class="preview-wrapper" id="preview-wrapper"> <div class="preview-overlay" id="preview-overlay"></div> <header class="preview-header" id="preview-header"> <img id="preview-avatar" src="" alt="Avatar"> <h1 id="preview-nickname" data-state-key="personalInfo.nickname"></h1><h2 id="preview-subtitle" data-state-key="personalInfo.subtitle"></h2><p id="preview-bio" data-state-key="personalInfo.bio"></p> <div class="tags-container" id="preview-tags-container"></div> </header> <main class="preview-blocks-container" id="preview-blocks-container"></main> </div> </main>
     </div>
 
-    <div class="modal-overlay" id="cropper-modal"><div class="modal-container"><h3 id="cropper-title">裁剪图片</h3><div class="crop-ratios radio-group"><label><input type="radio" name="crop-ratio" value="NaN" checked> 自由</label><label><input type="radio" name="crop-ratio" value="1"> 1:1</label><label><input type="radio" name="crop-ratio" value="1.3333"> 4:3</label><label><input type="radio" name="crop-ratio" value="1.7777"> 16:9</label></div><div class="cropper-img-container"><img id="cropper-image" src=""></div><div class="modal-actions"><button id="cropper-cancel-btn" class="btn btn-default">取消</button><button id="cropper-save-btn" class="btn btn-primary">确认</button></div></div></div>
+    <div class="modal-overlay" id="cropper-modal"><div class="modal-container"><h3 id="cropper-title">裁剪图片</h3><div class="crop-ratios radio-group"><label><input 输入="radio" name="crop-ratio" value="NaN" checked> 自由</label><label><input type="radio" name="crop-ratio" value="1"> 1:1</label><label><input type="radio" name="crop-ratio" value="1.3333"> 4:3</label><label><input type="radio" name="crop-ratio" value="1.7777"> 16:9</label></div><div class="cropper-img-container"><img id="cropper-image" src=""></div><div class="modal-actions"><button id="cropper-cancel-btn" class="btn btn-default">取消</button><button id="cropper-save-btn" class="btn btn-primary">确认</button></div></div></div>
     <div class="modal-overlay" id="download-modal"><div class="modal-container"><h3 id="download-modal-title">下载已准备好</h3><div id="download-modal-content"></div><div class="modal-actions" style="justify-content: center;"><button id="download-modal-close-btn" class="btn btn-default">关闭</button></div></div></div>
     
     <div class="modal-overlay" id="help-modal">
@@ -537,54 +537,54 @@
     <script src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        document。addEventListener('DOMContentLoaded'， () => {
             const App = {
-                state: {},
-                history: [],
-                historyIndex: -1,
-                isRestoringState: false,
-                isEditingText: false,
-                cropper: null,
-                currentCropTarget: null,
-                currentIconTarget: null, 
-                sortableBlocksEditor: null,
-                sortableBlocksPreview: null,
-                cardSortables: {},
-                imageSortables: {},
-                debouncedSaveToLocal: null,
-                localFonts: [],
-                uploadedFonts: [],
-                presets: {},
-                icons: [], 
+                state: {}，
+                history: []，
+                historyIndex: -1，
+                isRestoringState: false，
+                isEditingText: false，
+                cropper: null，
+                currentCropTarget: null，
+                currentIconTarget: null， 
+                sortableBlocksEditor: null，
+                sortableBlocksPreview: null，
+                cardSortables: {}，
+                imageSortables: {}，
+                debouncedSaveToLocal: null，
+                localFonts: []，
+                uploadedFonts: []，
+                presets: {}，
+                icons: []， 
 
                 init() {
                     console.log("Blokko 初始化 v1.2.2 ...");
-                    this.elements = this.queryElements();
-                    this.presets = this.getPresets();
-                    this.state = this.getDefaultState();
-                    this.debouncedSaveToLocal = this.debounce(this.saveToLocal, 500);
+                    this。elements = this。queryElements();
+                    this。presets = this。getPresets();
+                    this。state = this。getDefaultState();
+                    this。debouncedSaveToLocal = this。debounce(this。saveToLocal， 500);
                     
-                    this.bindCoreEvents();
-                    this.bindEditorEvents();
-                    this.bindPreviewEvents();
-                    this.initResizer();
+                    this。bindCoreEvents();
+                    this。bindEditorEvents();
+                    this。bindPreviewEvents();
+                    this。initResizer();
                     
-                    this.loadPreferences();
-                    this.loadFromLocal();
+                    this。loadPreferences();
+                    this。loadFromLocal();
                     
-                    this.history = [this.deepClone(this.state)];
-                    this.historyIndex = 0;
-                    this.updateUndoRedoButtons();
+                    this。history = [this。deepClone(this。state)];
+                    this。historyIndex = 0;
+                    this。updateUndoRedoButtons();
                     
-                    this.syncAllControls();
-                    this.renderAll(true); 
-                    this.populateFontList(); 
-                    this.initAllSortables();
-                    this.updateExportSizePreview();
-                    this.loadIcons(); 
+                    this。syncAllControls();
+                    this。renderAll(true); 
+                    this。populateFontList(); 
+                    this。initAllSortables();
+                    this。updateExportSizePreview();
+                    this。loadIcons(); 
                     
-                    document.getElementById('personal-info-section').classList.remove('collapsed');
-                },
+                    document.getElementById('personal-info-section')。classList。remove('collapsed');
+                }，
 
                 getDefaultState() {
                     const lightTheme = this.getPresets().light;
@@ -616,21 +616,21 @@
                             { id: this.generateId('b'), type: 'text', title: "单排卡片区块", settings: { layout: 'single' }, cards: [
                                 { id: this.generateId('c'), icon: 'mdi:star-circle', title: "这是单排卡片", content: "双击这里进行编辑", opacity: 1.0, followGlobalOpacity: true }
                             ]},
-                            { id: this.generateId('b'), type: 'text', title: "双排卡片区块", settings: { layout: 'dual' }, cards: [
-                                { id: this.generateId('c'), icon: '', title: "这是双排卡片 1", content: "双击这里进行编辑", opacity: 1.0, followGlobalOpacity: true },
-                                { id: this.generateId('c'), icon: '', title: "这是双排卡片 2", content: "双击这里进行编辑", opacity: 1.0, followGlobalOpacity: true }
-                            ]},
+                            { id: this。generateId('b')， 输入: 'text', title: "双排卡片区块"， 设置: { layout: 'dual' }, cards: [
+                                { id: this。generateId('c')， icon: '', title: "这是双排卡片 1", content: "双击这里进行编辑", opacity: 1.0, followGlobalOpacity: true },
+                                { id: this。generateId('c')， icon: '', title: "这是双排卡片 2", content: "双击这里进行编辑", opacity: 1.0, followGlobalOpacity: true }
+                            ]}，
                             { id: this.generateId('b'), type: 'separator', title: "分割线", settings: { style: 'solid', color: '#dddddd', thickness: 1, margin: 20 }},
                             { id: this.generateId('b'), type: 'image', title: "图片区块", settings: { layout: '2', useGlobalStyle: true, followGlobalOpacity: true, bgOpacity: 1.0, bgColor: '#ffffff' }, images: [] }
                         ],
                         globalCardStyles: { 
                             bgMode: 'solid', 
-                            bgColor: lightTheme.gCardBgColor, textColor: lightTheme.gCardTextColor, opacity: 1.0,
-                            bgGradientStart: lightTheme.gCardBgGradientStart, bgGradientEnd: lightTheme.gCardBgGradientEnd,
+                            bgColor: lightTheme。gCardBgColor， textColor: lightTheme。gCardTextColor, opacity: 1.0,
+                            bgGradientStart: lightTheme。gCardBgGradientStart， bgGradientEnd: lightTheme。gCardBgGradientEnd,
                             bgGradientAngle: 135,
                             shadowEnabled: true, radius: 12, textAlign: "left", lineHeight: "1.5", 
-                            fontFamily: "", fontSize: "1rem",
-                            textStrokeWidth: 0, textStrokeColor: "#000000",
+                            fontFamily: ""， fontSize: "1rem"，
+                            textStrokeWidth: 0， textStrokeColor: "#000000"，
                             borderWidth: 0, borderStyle: 'none', borderColor: '#cccccc',
                         }
                     };
@@ -639,7 +639,7 @@
                 getPresets() {
                     return {
                         light: {
-                            pageBgSolidColor: "#f0f2f5", pageBgGradientStart: "#f0f2f5", pageBgGradientEnd: "#e6e9ed",
+                            pageBgSolidColor: "#f0f2f5"， pageBgGradientStart: "#f0f2f5"， pageBgGradientEnd: "#e6e9ed"，
                             headerBgColor: "#ffffff", headerBgGradientStart: "#ffffff", headerBgGradientEnd: "#f7f7f7",
                             headerTextColor: "#1a1a1a",
                             gCardBgColor: "#ffffff", gCardTextColor: "#1a1a1a", gCardOpacity: 1.0,
@@ -651,51 +651,51 @@
                             pageBgSolidColor: "#121417", pageBgGradientStart: "#121417", pageBgGradientEnd: "#1a1d21",
                             headerBgColor: "#1f2229", headerBgGradientStart: "#1f2229", headerBgGradientEnd: "#252930",
                             headerTextColor: "#f0f2f5",
-                            gCardBgColor: "#2c303a", gCardTextColor: "#f0f2f5", gCardOpacity: 0.95,
+                            gCardBgColor: "#2c303a", gCardTextColor: "#f0f2f5", gCardOpacity: 0.95，
                             gCardBgGradientStart: "#2c303a", gCardBgGradientEnd: "#343946",
-                            pNicknameColor: "#f0f2f5", pSubtitleColor: "#a0aec0", pBioColor: "#a0aec0",
+                            pNicknameColor: "#f0f2f5", pSubtitleColor: "#a0aec0", pBioColor: "#a0aec0"，
                             pTagBgColor: "#3e4451", pTagTextColor: "#e2e8f0",
                         },
                         mint: {
                             pageBgSolidColor: "#ccfbf1", pageBgGradientStart: "#ccfbf1", pageBgGradientEnd: "#a7f3d0",
-                            headerBgColor: "#f0fdfa", headerBgGradientStart: "#f0fdfa", headerBgGradientEnd: "#e6fcf5",
+                            headerBgColor: "#f0fdfa", headerBgGradientStart: "#f0fdfa", headerBgGradientEnd: "#e6fcf5"，
                             headerTextColor: "#0f766e",
-                            gCardBgColor: "#ffffff", gCardTextColor: "#134e4a", gCardOpacity: 1.0,
+                            gCardBgColor: "#ffffff", gCardTextColor: "#134e4a", gCardOpacity: 1.0，
                             gCardBgGradientStart: "#ffffff", gCardBgGradientEnd: "#fafffd",
-                            pNicknameColor: "#064e3b", pSubtitleColor: "#115e59", pBioColor: "#134e4a",
+                            pNicknameColor: "#064e3b", pSubtitleColor: "#115e59", pBioColor: "#134e4a"，
                             pTagBgColor: "#a7f3d0", pTagTextColor: "#065f46",
                         },
                         coffee: {
-                            pageBgSolidColor: "#f3e8e2", pageBgGradientStart: "#f3e8e2", pageBgGradientEnd: "#e9d8cf",
+                            pageBgSolidColor: "#f3e8e2", pageBgGradientStart: "#f3e8e2", pageBgGradientEnd: "#e9d8cf"，
                             headerBgColor: "#fdf8f6", headerBgGradientStart: "#fdf8f6", headerBgGradientEnd: "#faf3ef",
                             headerTextColor: "#432818",
                             gCardBgColor: "#ffffff", gCardTextColor: "#5e4534", gCardOpacity: 1.0,
                             gCardBgGradientStart: "#ffffff", gCardBgGradientEnd: "#fffbf8",
-                            pNicknameColor: "#432818", pSubtitleColor: "#6f4e37", pBioColor: "#5e4534",
+                            pNicknameColor: "#432818", pSubtitleColor: "#6f4e37", pBioColor: "#5e4534"，
                             pTagBgColor: "#e3d5ca", pTagTextColor: "#432818",
                         }
                     };
                 },
 
                 queryElements() {
-                    const q = (selector) => document.querySelector(selector);
+                    const q = (selector) => document。querySelector(selector);
                     return {
                         editorPanel: q('#editor-panel'),
                         previewPanel: q('#preview-panel'),
                         resizer: q('#resizer'),
-                        themeToggleBtn: q('#theme-toggle-btn'), themeLabel: q('#theme-label'),
+                        themeToggleBtn: q('#theme-toggle-btn'), themeLabel: q('#theme-label')，
                         previewWrapper: q('#preview-wrapper'), previewOverlay: q('#preview-overlay'),
-                        undoBtn: q('#undo-btn'), redoBtn: q('#redo-btn'),
+                        undoBtn: q('#undo-btn')， redoBtn: q('#redo-btn'),
                         importBtn: q('#import-btn'), exportBtn: q('#export-btn'),
-                        exportTemplateBtn: q('#export-template-btn'), 
+                        exportTemplateBtn: q('#export-template-btn')， 
                         exportPngBtn: q('#export-png-btn'), configFileInput: q('#config-file-input'),
                         hdExportToggle: q('#hd-export-toggle'), exportSizePreview: q('#export-size-preview'),
-                        previewHeader: q('#preview-header'), previewAvatar: q('#preview-avatar'),
-                        previewNickname: q('#preview-nickname'), previewSubtitle: q('#preview-subtitle'),
-                        previewBio: q('#preview-bio'), previewTagsContainer: q('#preview-tags-container'),
-                        pageBgUpload: q('#page-bg-upload'), clearPageBgBtn: q('#clear-page-bg-btn'),
-                        pageImageControls: q('#page-image-controls'),
-                        cropperModal: q('#cropper-modal'), cropperImage: q('#cropper-image'),
+                        previewHeader: q('#preview-header')， previewAvatar: q('#preview-avatar')，
+                        previewNickname: q('#preview-nickname')， previewSubtitle: q('#preview-subtitle'),
+                        previewBio: q('#preview-bio')， previewTagsContainer: q('#preview-tags-container'),
+                        pageBgUpload: q('#page-bg-upload'), clearPageBgBtn: q('#clear-page-bg-btn')，
+                        pageImageControls: q('#page-image-controls')，
+                        cropperModal: q('#cropper-modal')， cropperImage: q('#cropper-image')，
                         cropperCancelBtn: q('#cropper-cancel-btn'), cropperSaveBtn: q('#cropper-save-btn'),
                         downloadModal: q('#download-modal'), downloadModalTitle: q('#download-modal-title'),
                         downloadModalContent: q('#download-modal-content'), downloadModalCloseBtn: q('#download-modal-close-btn'),
@@ -893,28 +893,28 @@
                             }
                         }
 
-                        const blockEl = target.closest('.editor-block');
+                        const blockEl = target。closest('.editor-block');
                         if (blockEl) {
-                             const blockId = blockEl.dataset.blockId;
-                             if(target.type === 'text' && target.classList.contains('editor-block-title-input')){
-                                 this.updateBlockTitle(blockId, target.value, false);
+                             const blockId = blockEl。dataset.blockId;
+                             if(target。输入 === 'text' && target.classList.contains('editor-block-title-input')){
+                                 this.updateBlockTitle(blockId， target。value, false);
                              } else if (target.dataset.settingKey) {
                                  const value = target.type === 'checkbox' ? target.checked : target.value;
                                  this.updateBlockSettings(blockId, target.dataset.settingKey, value, false);
                              } else if (target.dataset.cardKey) {
-                                 const cardEl = target.closest('.editor-card');
-                                 const value = target.type === 'checkbox' ? target.checked : target.value;
-                                 if (cardEl) this.updateCard(blockId, cardEl.dataset.cardId, target.dataset.cardKey, value, false);
+                                 const cardEl = target。closest('.editor-card');
+                                 const value = target。输入 === 'checkbox' ? target.checked : target。value;
+                                 if (cardEl) this。updateCard(blockId, cardEl.dataset.cardId, target.dataset.cardKey, value, false);
                              } else if (target.dataset.imageKey) {
-                                 const thumbItem = target.closest('.thumbnail-item');
-                                 if (thumbItem) this.updateImageData(blockId, parseInt(thumbItem.dataset.index), target.dataset.imageKey, target.value, false);
+                                 const thumbItem = target。closest('.thumbnail-item');
+                                 if (thumbItem) this。updateImageData(blockId, parseInt(thumbItem.dataset.index), target.dataset.imageKey, target.value, false);
                              }
                         }
                     });
 
-                    this.elements.editorPanel.addEventListener('change', e => {
+                    this.elements。editorPanel。addEventListener('change'， e => {
                         if (this.isRestoringState) return;
-                        const target = e.target;
+                        const target = e。target;
                         
                         if (target.dataset.stateKey || target.closest('.editor-block') || target.dataset.colorSyncKey) {
                             this.pushHistory();
@@ -922,51 +922,51 @@
                     });
 
                     this.elements.editorPanel.addEventListener('click', e => {
-                        const target = e.target;
-                        const resetKey = target.dataset.resetKey;
+                        const target = e。target;
+                        const resetKey = target。dataset.resetKey;
                         if(resetKey) {
-                            let basePreset = this.presets.light;
-                            const darkIndicatorColor = this.state.globalCardStyles.textColor;
-                            if (darkIndicatorColor === this.presets.dark.gCardTextColor) basePreset = this.presets.dark;
-                            else if (darkIndicatorColor === this.presets.mint.gCardTextColor) basePreset = this.presets.mint;
-                            else if (darkIndicatorColor === this.presets.coffee.gCardTextColor) basePreset = this.presets.coffee;
+                            let basePreset = this。presets.light;
+                            const darkIndicatorColor = this。state。globalCardStyles。textColor;
+                            if (darkIndicatorColor === this。presets。dark。gCardTextColor) basePreset = this.presets.dark;
+                            else if (darkIndicatorColor === this。presets。mint.gCardTextColor) basePreset = this.presets.mint;
+                            else if (darkIndicatorColor === this。presets。coffee.gCardTextColor) basePreset = this.presets.coffee;
 
                             const keyMap = {
                                 nicknameColor: 'pNicknameColor', subtitleColor: 'pSubtitleColor', bioColor: 'pBioColor',
                                 tagBgColor: 'pTagBgColor', tagTextColor: 'pTagTextColor', avatarBorderColor: '#ffffff'
                             };
                             
-                            const [section, key] = resetKey.split('.');
+                            const [section， key] = resetKey。split('.');
                             const presetKey = keyMap[key];
                             
-                            let valueToReset = basePreset[presetKey] || this.presets.light[presetKey];
+                            let valueToReset = basePreset[presetKey] || this。presets。light[presetKey];
                             
                             this.updateState(resetKey, valueToReset, true);
                             this.syncControl(resetKey);
-                            this.showToast('颜色已重置', 'info');
+                            this.showToast('颜色已重置'， 'info');
                             return;
                         }
 
-                        if (target.type === 'radio' && target.dataset.stateKey) {
+                        if (target。输入 === 'radio' && target。dataset.stateKey) {
                             this.updateState(target.dataset.stateKey, target.value, true);
                         }
 
                         const blockEl = target.closest('.editor-block');
                         if (blockEl) {
                             const blockId = blockEl.dataset.blockId;
-                            if (target.closest('.block-delete-btn')) { if (window.confirm('确定要删除这个区块吗？')) this.deleteBlock(blockId); }
-                            else if (target.closest('.block-up-btn')) this.moveBlockUp(blockId);
+                            if (target.closest('.block-delete-btn')) { if (window。confirm('确定要删除这个区块吗？')) this。deleteBlock(blockId); }
+                            else if (target.closest('.block-up-btn')) this。moveBlockUp(blockId);
                             else if (target.closest('.block-down-btn')) this.moveBlockDown(blockId);
-                            else if (target.closest('.add-card-btn')) this.addCard(blockId);
-                            else if (target.closest('.image-upload-area')) blockEl.querySelector('.image-upload-input')?.click();
+                            else if (target。closest('.add-card-btn')) this。addCard(blockId);
+                            else if (target。closest('.image-upload-area')) blockEl.querySelector('.image-upload-input')?.click();
                             else if (target.closest('.card-delete-btn')) this.deleteCard(blockId, target.closest('.editor-card').dataset.cardId);
                             else if (target.closest('.card-clear-bg-btn')) {
-                                this.updateCard(blockId, target.closest('.editor-card').dataset.cardId, 'bgImageDataUrl', null, true);
+                                this.updateCard(blockId, target.closest('.editor-card')。dataset.cardId, 'bgImageDataUrl'， null, true);
                                 this.showToast('卡片背景图已清除', 'info');
                             }
-                            else if (target.closest('.delete-image-btn')) this.deleteImage(blockId, parseInt(target.closest('.thumbnail-item').dataset.index));
+                            else if (target.closest('.delete-image-btn')) this.deleteImage(blockId， parseInt(target.closest('.thumbnail-item').dataset.index));
                             else if (target.closest('.crop-image-btn')) this.cropImage(blockId, parseInt(target.closest('.thumbnail-item').dataset.index));
-                            else if (target.closest('.select-icon-btn')) { 
+                            else if (target。closest('.select-icon-btn')) { 
                                 const cardId = target.closest('.editor-card').dataset.cardId;
                                 this.showIconPicker('card', blockId, cardId);
                             }
@@ -2244,69 +2244,99 @@
                     `;
                 },
                 
-                async exportPNG(){
-                    this.showLoading('正在准备导出...');
-                    const scale = this.elements.hdExportToggle.checked ? 3 : 2;
-                    const originalElement = this.elements.previewWrapper;
-                    let clone = null;
-                    
-                    const wasDrawerOpen = this.elements.editorPanel.classList.contains('is-open');
-                    if (wasDrawerOpen) {
-                        this.toggleEditorDrawer(false);
-                        await this.sleep(100);
-                    }
-                    
-                    document.body.classList.add('export-mode');
+               // 找到 exportPNG 函数 (大约在第 1394 行)
+// 用下面的代码完整替换掉它
+async exportPNG(){
+    this.showLoading('正在准备导出...');
+    const scale = this.elements.hdExportToggle.checked ? 3 : 2;
+    const originalElement = this.elements.previewWrapper;
+    let tempContainer = null;
+    
+    // Blokko v1.2.2: 修复移动端抽屉影响
+    const wasDrawerOpen = this.elements.editorPanel.classList.contains('is-open');
+    if (wasDrawerOpen) {
+        this.toggleEditorDrawer(false);
+        await this.sleep(100);
+    }
+    
+    // Blokko v1.2.2: 修复自定义宽度导出问题
+    // 1. 创建一个全屏的临时容器作为截图舞台
+    tempContainer = document.createElement('div');
+    tempContainer.style.position = 'fixed';
+    tempContainer.style.top = '0';
+    tempContainer.style.left = '0';
+    tempContainer.style.width = '100vw';
+    tempContainer.style.height = '100vh';
+    tempContainer.style.zIndex = '10000';
+    tempContainer.style.display = 'flex';
+    tempContainer.style.alignItems = 'flex-start';
+    tempContainer.style.justifyContent = 'center';
+    tempContainer.style.overflow = 'auto';
+    tempContainer.style.backgroundColor = 'rgba(0,0,0,0.01)'; // 几乎透明，用于调试
+    tempContainer.style.opacity = '0'; // 完全透明，用户不可见
+    
+    let clone;
+    try {
+        clone = originalElement.cloneNode(true);
+        clone.id = `export-clone-${Date.now()}`;
+        
+        const style = document.createElement('style');
+        style.innerHTML = `
+            #${clone.id}, #${clone.id} * { transition: none !important; animation: none !important; }
+            #${clone.id} .preview-card:hover .preview-card-inner { transform: none !important; box-shadow: var(--active-card-shadow, none) !important; }
+        `;
+        clone.appendChild(style);
 
-                    try {
-                        clone = originalElement.cloneNode(true);
-                        clone.id = `export-clone-${Date.now()}`;
-                        
-                        const style = document.createElement('style');
-                        style.innerHTML = `
-                            #${clone.id}, #${clone.id} * { transition: none !important; animation: none !important; }
-                            #${clone.id} .preview-card:hover .preview-card-inner { transform: none !important; box-shadow: var(--active-card-shadow, none) !important; }
-                        `;
-                        clone.appendChild(style);
+        // 2. 设定克隆体的宽度
+        let exportWidth = originalElement.offsetWidth;
+        if (this.elements.customWidthToggle.checked) {
+            const customWidth = parseInt(this.elements.customWidthInput.value, 10);
+            const MAX_WIDTH = 4000; // 设置一个合理的宽度上限
+            if (customWidth > 0) {
+                exportWidth = Math.min(customWidth, MAX_WIDTH);
+                if(customWidth > MAX_WIDTH) {
+                    this.showToast(`宽度已限制在 ${MAX_WIDTH}px 以内`, 'info');
+                }
+            }
+        }
+        clone.style.width = `${exportWidth}px`;
+        clone.style.margin = '40px'; // 给克隆体一些边距，防止贴边
 
-                        clone.style.position = 'absolute';
-                        clone.style.left = '0px';
-                        clone.style.top = '0px';
-                        clone.style.width = `${originalElement.offsetWidth}px`;
+        // 3. 将克隆体放入临时舞台并添加到页面
+        tempContainer.appendChild(clone);
+        document.body.appendChild(tempContainer);
+        await this.sleep(100);
 
-                        document.body.appendChild(clone);
-                        await this.sleep(100);
+        this.showLoading('正在处理样式 (烘焙)...');
+        await this.bakeOverlaysForExport(clone);
+        await this.sleep(100);
 
-                        this.showLoading('正在处理样式 (烘焙)...');
-                        await this.bakeOverlaysForExport(clone);
-                        await this.sleep(100);
+        this.showLoading('正在渲染图片...');
+        const canvas = await html2canvas(clone, {
+            scale: scale,
+            useCORS: true,
+            backgroundColor: null,
+            logging: false
+        });
 
-                        this.showLoading('正在渲染图片...');
-                        const canvas = await html2canvas(clone, {
-                            scale: scale,
-                            useCORS: true,
-                            backgroundColor: null,
-                            logging: false
-                        });
+        const dataUrl = canvas.toDataURL('image/png');
+        const filename = this.generateFilename('Image') + '.png';
+        this.showDownloadModal(dataUrl, filename, '图片已生成');
 
-                        const dataUrl = canvas.toDataURL('image/png');
-                        const filename = this.generateFilename('Image') + '.png';
-                        this.showDownloadModal(dataUrl, filename, '图片已生成');
-
-                    } catch (err) {
-                        console.error("PNG export failed:", err);
-                        this.showErrorModal('导出失败', `生成图片时发生错误: ${err.message}.`);
-                    } finally {
-                        if (clone && clone.parentNode) {
-                            clone.parentNode.removeChild(clone);
-                        }
-                        if (wasDrawerOpen) {
-                            this.toggleEditorDrawer(true);
-                        }
-                        document.body.classList.remove('export-mode');
-                        this.hideLoading();
-                    }
-                },
+    } catch (err) {
+        console.error("PNG export failed:", err);
+        this.showErrorModal('导出失败', `生成图片时发生错误: ${err.message}.`);
+    } finally {
+        // 4. 清理临时舞台
+        if (tempContainer) {
+            document.body.removeChild(tempContainer);
+        }
+        if (wasDrawerOpen) {
+            this.toggleEditorDrawer(true);
+        }
+        this.hideLoading();
+    }
+},
                 
                 updateExportSizePreview(){
                      const el = this.elements.previewWrapper;
@@ -2679,3 +2709,4 @@
     </script>
 </body>
 </html>
+
