@@ -519,13 +519,13 @@
             </div>
             <div id="help-tutorial" class="tab-content">
                 <h4>欢迎来到 Blokko！✨</h4>
-                <p>检测到你可能是第一次打开，别担心，这个小教程将带你快速上手，整个过程只需一分钟！当然如果你有类似工具使用经验，或是已经熟练使用的话，划到最底下看完重要提示，就放心关掉吧！</p
+                <p>别担心，这个小教程将带你快速上手，整个过程只需一分钟！当然如果你有类似工具使用经验，或是已经熟练使用的话，划到最底下看完重要提示，就放心关掉吧!</p>
                 <hr class="separator">
                 <h5>写在正式开始前</h5>
                 <p>Blokko 是一个免费的工具，建议使用<strong>安卓端的Via浏览器，并打开全屏模式或电脑模式，PC端的Edge浏览器和Chrome浏览器</strong>来使用体验最佳。</p>
-        		<hr class="separator">
-				<h5>第一步：核心技巧 - 双击编辑！</h5>
-                <p>Blokko 最便捷的操作就是“双击”。<strong>预览区域里你看到的所有文字</strong>（比如昵称、简介、卡片标题和内容），直接用鼠标<strong>双击</strong>它们，就可以立刻开始编辑，非常方便！(需要确认最上方按钮是“编辑中”状态哦！）</p>
+                <hr class="separator">
+                <h5>第一步：核心技巧 - 双击编辑！</h5>
+                <p>Blokko 最便捷的操作就是“双击”。<strong>预览区域里你看到的所有文字</strong>（比如昵称、简介、卡片标题和内容），直接<strong>双击</strong>它们，就可以立刻开始编辑，非常方便！（需要把最上方按钮切换成“编辑中”状态哦）</p>
                 <hr class="separator">
                 <h5>第二步：调整你的个人信息</h5>
                 <p>在左侧的编辑面板，最上方的 <strong>“个人信息”</strong> 区域，你可以上传头像、修改昵称、添加标签，打造属于你的独特头部样式。</p>
@@ -539,7 +539,7 @@
                 <div style="background: var(--bg-input); border-left: 4px solid var(--color-danger); padding: 10px 15px; border-radius: 6px;">
                     <h5 style="color: var(--color-danger); margin-top:0;">⚠️ 关于版权的重要提示</h5>
                     <p>Blokko 是一个完全免费的本地创作工具。当您使用“上传字体”、“上传图片/图标”功能时，您需要对这些素材负责。<strong>请确保您上传和使用的任何文件都已获得了原版权方的合法授权，或使用无版权可商用素材。</strong></p>
-                    <p style="margin-bottom:0;">因使用未授权素材而产生的任何版权问题，将由您自行承担。换言之，使用素材一定要注意版权哦！</p>
+                    <p style="margin-bottom:0;">因使用未授权素材而产生的任何版权问题，将由您自行承担。换言之，自己上传素材，一定要注意版权信息哦！</p>
                 </div>
                 <div class="modal-actions" style="justify-content: center; margin-top: 20px;">
                     <button id="tutorial-close-btn" class="btn btn-primary">我学会了，开始创作！</button>
@@ -688,7 +688,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                 <h4>关于 Blokko</h4>
                 <p>Blokko是一个方便大家快速制作扩列/自荐/置顶图的小工具！</p>
                 <p><strong>作者：</strong> 四十七</p>
-                <p>如果你在使用中遇到BUG，可以通过链接私信我！如果觉得好用的话，也可以点链接在置顶里留下评论或转发，或者是在自己的置顶评论区里向别人分享原博链接（就是置顶工具那一条！）这会给我很大动力。</p>
+                <p>如果你在使用中遇到BUG，可以通过链接私信我！如果觉得好用，也可以点击链接去置顶留下评论或转发，或者分享这个软件的原博（也就是点开链接就能看到的置顶）这会给我很大鼓励！</p>
                 <p><a href="https://weibo.com/u/5095783616" target="_blank" rel="noopener noreferrer"><strong>我的微博主页</strong></a></p>
             </div>
             <div class="modal-actions" style="justify-content: center; margin-top: 20px;">
@@ -2588,8 +2588,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                     const styles = this.state.pageStyles;
                     let pageBgLayers = [];
                     let pageBgSizes = [];
-                    // 修复 1：在这里声明 pageBgPositions 数组
-                    let pageBgPositions = []; 
+                    let pageBgPositions = [];
                     let pageBgColor = 'transparent';
 
                     if (styles.pageBgPattern) {
@@ -2616,9 +2615,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                     }
                     if (styles.pageBgMode === 'gradient') {
                         pageBgLayers.push(`linear-gradient(${styles.pageBgGradientAngle}deg, ${styles.pageBgGradientStart}, ${styles.pageBgGradientEnd})`);
-                        // 额外修复：为渐变背景也添加 size 和 position
-                        pageBgSizes.push('cover');
-                        pageBgPositions.push('center');
                     } else {
                         pageBgColor = styles.pageBgSolidColor;
                     }
@@ -2626,32 +2622,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                     pageWrapper.style.backgroundColor = pageBgColor;
                     pageWrapper.style.backgroundImage = pageBgLayers.join(', ');
                     pageWrapper.style.backgroundSize = pageBgSizes.join(', ');
-                    // 修复 2：修正这里的拼写错误
-                    pageWrapper.style.backgroundPosition = pageBgPositions.join(', ');
-                    
-                    clone.querySelectorAll('.preview-card-inner').forEach(cardInner => {
-                        const computed = getComputedStyle(cardInner);
-                        const beforeComputed = getComputedStyle(cardInner, '::before');
-                        const afterComputed = getComputedStyle(cardInner, '::after');
-                        
-                        let backgroundStyle = beforeComputed.getPropertyValue('background');
-                        const overlayOpacity = parseFloat(afterComputed.getPropertyValue('opacity'));
-                        const bgImage = beforeComputed.getPropertyValue('background-image');
-
-                        if (overlayOpacity > 0 && bgImage !== 'none') {
-                            const overlayColor = afterComputed.getPropertyValue('background-color');
-                             if(overlayColor !== 'rgba(0, 0, 0, 0)') {
-                                const overlayGradient = `linear-gradient(${overlayColor}, ${overlayColor})`;
-                                backgroundStyle = `${overlayGradient}, ${backgroundStyle}`;
-                            }
-                        }
-                        cardInner.style.background = backgroundStyle;
-                        cardInner.style.border = computed.border;
-                        cardInner.style.boxShadow = computed.boxShadow;
-                    });
-                    
-                    style.innerHTML += `#${clone.id} .preview-card-inner::before, #${clone.id} .preview-card-inner::after { content: none !important; background: none !important; display: none !important; }`;
-                },
+                    pageWrapper.style.backgroundPosition = bgPositions.join(', ');
                     
                     clone.querySelectorAll('.preview-card-inner').forEach(cardInner => {
                         const computed = getComputedStyle(cardInner);
@@ -3268,5 +3239,3 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     </script>
 </body>
 </html>
-
-
