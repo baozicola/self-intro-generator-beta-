@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Blokko v1.5.0 (Internal): -->
-    <title>Blokko-个人简介生成器！ (v1.5.0)-来玩2077吧！</title>
+    <!-- Blokko v1.5.1 (Internal): -->
+    <title>Blokko-个人简介生成器！ (v1.5.1)-来玩2077吧！</title>
     
     <script>
         // Anti-FOUC (Flash of Unstyled Content) Script
@@ -299,8 +299,9 @@
         .preview-cards-container figure:hover img { transform: scale(1.05); }
         .preview-cards-container figure figcaption { text-align: center; margin-top: 8px; padding: 5px; overflow-wrap: break-word; color: var(--g-card-text-color); border-radius: 8px; }
         .preview-cards-container figure figcaption strong { display: block; font-weight: 600; margin-bottom: 3px; }
-        .separator-preview { display: flex; align-items: center; justify-content: center; }
+        .separator-preview { display: flex; align-items: center; justify-content: center; gap: 15px; }
         .separator-preview-line { flex-grow: 1; height: 1px; }
+        .separator-preview-text { flex-shrink: 0; font-size: 0.9em; font-weight: 600; color: var(--text-secondary); }
         .spacer-preview { transition: height 0.3s ease; }
         .font-controls { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; align-items: stretch; }
         .font-controls select { width: 100%; }
@@ -311,6 +312,7 @@
         .modal-container { background: var(--bg-editor); border-radius: 16px; box-shadow: 0 10px 30px var(--shadow-medium); padding: 25px; width: 90%; max-width: 500px; border: 1px solid var(--border-color); transform: scale(0.95); opacity: 0; transition: all var(--transition-speed) ease; }
         .modal-overlay.visible .modal-container { transform: scale(1); opacity: 1; }
         .modal-container h3 { margin-top: 0; margin-bottom: 20px; font-size: 1.25rem; color: var(--text-primary); }
+        #confirm-modal-message { margin: 15px 0; font-size: 1rem; line-height: 1.5; }
         .cropper-img-container { width: 100%; height: 300px; margin-bottom: 20px; background: var(--bg-input); border-radius: 8px; overflow: hidden; }
         .cropper-img-container img { max-width: 100%; }
         .modal-actions { display: flex; gap: 15px; justify-content: flex-end; margin-top: 15px; }
@@ -391,7 +393,8 @@
                 height: calc(100vh - var(--header-height)); background: rgba(0,0,0,0.4); z-index: 199;
                 opacity: 1; pointer-events: auto; transition: opacity 0.3s ease-in-out;
             }
-            .preview-cards-triple { grid-template-columns: 1fr; }
+            /* v1.5.1 FIX: Removed rule that forced triple columns to single on mobile */
+            /* .preview-cards-triple { grid-template-columns: 1fr; } */
             .masonry-active.preview-cards-triple .preview-card, .masonry-active.preview-cards-triple figure { width: 100%; }
             .color-control-row, .gradient-controls { flex-direction: column; gap: 10px; }
             .gradient-controls { grid-template-columns: 1fr; }
@@ -403,7 +406,7 @@
 
     <header class="app-header">
         <button id="mobile-layer-toggle" class="btn btn-default btn-icon" style="width: auto; padding: 6px 12px;"><span class="iconify" data-icon="mdi:layers-outline"></span> 内容</button>
-        <div class="app-header-title">Blokko (v1.5.0)</div>
+        <div class="app-header-title">Blokko (v1.5.1)</div>
         <div class="header-actions-wrapper">
             <button id="lock-mode-toggle" class="btn btn-default" style="width: auto; padding: 6px 12px;" title="切换编辑/预览模式">编辑中</button>
             <button id="show-help-btn" class="btn btn-default btn-icon" style="width: auto; padding: 6px 12px;"><span class="iconify" data-icon="mdi:help-circle-outline"></span> 帮助</button>
@@ -453,6 +456,18 @@
 
     <div class="modal-overlay" id="cropper-modal"><div class="modal-container"><h3 id="cropper-title">裁剪图片</h3><div class="crop-ratios radio-group"><label><input type="radio" name="crop-ratio" value="NaN" checked> 自由</label><label><input type="radio" name="crop-ratio" value="1"> 1:1</label><label><input type="radio" name="crop-ratio" value="1.3333"> 4:3</label><label><input type="radio" name="crop-ratio" value="1.7777"> 16:9</label></div><div class="cropper-img-container"><img id="cropper-image" src=""></div><div class="modal-actions"><button id="cropper-cancel-btn" class="btn btn-default">取消</button><button id="cropper-save-btn" class="btn btn-primary">确认</button></div></div></div>
     <div class="modal-overlay" id="download-modal"><div class="modal-container"><h3 id="download-modal-title">下载已准备好</h3><div id="download-modal-content"></div><div class="modal-actions" style="justify-content: center;"><button id="download-modal-close-btn" class="btn btn-default">关闭</button></div></div></div>
+    
+    <!-- v1.5.1: New Custom Confirm Modal -->
+    <div class="modal-overlay" id="confirm-modal">
+        <div class="modal-container">
+            <h3 id="confirm-modal-title">请确认</h3>
+            <p id="confirm-modal-message">确定要执行此操作吗？</p>
+            <div class="modal-actions">
+                <button id="confirm-modal-cancel-btn" class="btn btn-default">取消</button>
+                <button id="confirm-modal-ok-btn" class="btn btn-danger">确定</button>
+            </div>
+        </div>
+    </div>
     
     <div class="modal-overlay" id="help-modal">
         <div class="modal-container" style="max-width: 700px;">
@@ -507,33 +522,47 @@
                 </ul>
 		   </div>
             <div id="help-changelog" class="tab-content">
-                <h4>v1.5.0</h4>
+                <h4>v1.5.1</h4>
                 <ul>
-                    <li><b>【重做】</b> <b>全新三栏式专业布局</b>: 为了从根本上解决编辑区拥挤的问题，v1.5.0 引入了全新的专业级三栏式界面布局，操作流程更清晰、更高效。
-                        <ul>
-                            <li><b>左侧 - 内容图层</b>: 清晰地展示所有内容区块的层级结构，专注于内容的增删、排序和重命名。</li>
-                            <li><b>中间 - 实时预览</b>: 保持所见即所得的画布体验，现在点击其中元素可以直接激活右侧的样式设置。</li>
-                            <li><b>右侧 - 样式检查器</b>: 一个强大的上下文关联面板。默认显示全局样式；当您选中任何元素时，它会自动切换，只显示该元素的专属设置选项。</li>
-                        </ul>
-                    </li>
-                    <li><b>【功能与体验优化】</b>
-                        <ul>
-                            <li><b>上下文关联编辑</b>: 现在，您可以通过点击预览区或左侧图层列表中的任意元素，来让右侧的“样式检查器”自动显示其相关设置。</li>
-                            <li><b>视觉联动高亮</b>: 当您选中一个元素进行编辑时，在预览区和图层列表中，该元素都会出现高亮边框提示，让您始终清楚当前正在编辑的对象。</li>
-                            <li><b>新手教程与帮助</b>: “新手教程”中的版权重要提示已被移至顶部；教程页的关闭按钮文案已改为 “我已了解，开始使用”。</li>
-                            <li><b>隐私与安全声明</b>: 在“帮助”的“使用说明”中，新增了 “🔒 隐私与数据安全” 章节。</li>
-                        </ul>
-                    </li>
-                    <li><b>【问题修复】</b>
-                        <ul>
-                            <li>修复了在“全局卡片样式”中将不透明度滑块拉到 0 时，会导致卡片边框样式也一并消失的 Bug。</li>
-                            <li>修复了在为多列区块启用瀑布流（Masonry）布局后，导出图片时可能发生的元素重叠或布局错乱问题。</li>
-                            <li>优化了暗黑模式下的样式变量，确保主题切换不影响用户设置的阴影开关状态，仅改变阴影的视觉外观以适应深色背景。</li>
-                        </ul>
-                    </li>
+                    <li><b>【功能新增】</b> <b>分隔符支持文本</b>: 现在可以为“分隔符”区块添加居中文字了！例如，你可以创建像 `--- ✨ 我的作品 ---` 这样的标题式分隔线。同时支持自定义文字颜色，为你的排版提供更多可能。</li>
+                    <li><b>【功能新增】</b> <b>字体选择器实时预览</b>: PC 端用户现在可以在“全局卡片样式”中打开字体下拉列表时，直观地看到每个字体选项的实际渲染效果，选字体更加方便快捷！</li>
+                    <li><b>【体验优化】</b> <b>美化确认弹窗</b>: 将浏览器原生、样式简陋的 `window.confirm` 弹窗（用于“恢复默认模板”和“导入配置”）替换为了与 Blokko 整体 UI 风格一致的自定义美观模态框，提升了操作体验的流畅性。</li>
+                    <li><b>【体验优化】</b> <b>提升初始加载速度</b>: 优化了应用的启动流程，将加载本地字体、在线图标库等非核心、耗时的操作延迟到主界面渲染之后执行，显著减少了初次打开页面时的白屏等待时间。</li>
+                    <li><b>【体验优化】</b> <b>导出流程优化</b>: 采用了 `imagesLoaded` 技术替代了固定的延时等待，使得图片导出前的准备工作更加智能和高效。现在只有当所有图片确认加载完毕后才会开始渲染，提高了导出成功率并可能在网络良好时加快速度。</li>
+                    <li><b>【问题修复】</b> <b>修复-移动端布局</b>: 修复了在移动端视图下，将区块设置为“三排”布局时，预览和导出结果仍然强制显示为单排的 BUG。</li>
+                    <li><b>【问题修复】</b> <b>修复-图片导出无阴影</b>: 修复了在导出为图片时，无论是否开启，所有卡片（包括个人信息卡）的 `box-shadow` 阴影效果都会丢失的 BUG。</li>
+                    <li><b>【问题修复】</b> <b>修复-图片加载健壮性</b>: 增强了图片处理的稳定性，现在即使用户上传了损坏的图片文件，程序也能正确处理错误，不会再导致加载动画无限卡住。</li>
+                    <li><b>【问题修复】</b> <b>修复-瀑布流布局</b>: 修复了在启用“瀑布流”布局后，拖动调整窗口或侧边栏大小时，卡片布局不会自动重排导致错乱的 BUG。</li>
+                    <li><b>【问题修复】</b> <b>修复-数据兼容性</b>: 新增的“分隔符文本”功能已做向后兼容处理，现在导入不包含该文本信息的旧版本 `.json` 配置文件时也能正常解析，不会引发错误。</li>
                 </ul>
                 <details>
                     <summary>查看过往版本更新日志</summary>
+                    <hr class="separator">
+                    <h4>v1.5.0</h4>
+                    <ul>
+                        <li><b>【重做】</b> <b>全新三栏式专业布局</b>: 为了从根本上解决编辑区拥挤的问题，v1.5.0 引入了全新的专业级三栏式界面布局，操作流程更清晰、更高效。
+                            <ul>
+                                <li><b>左侧 - 内容图层</b>: 清晰地展示所有内容区块的层级结构，专注于内容的增删、排序和重命名。</li>
+                                <li><b>中间 - 实时预览</b>: 保持所见即所得的画布体验，现在点击其中元素可以直接激活右侧的样式设置。</li>
+                                <li><b>右侧 - 样式检查器</b>: 一个强大的上下文关联面板。默认显示全局样式；当您选中任何元素时，它会自动切换，只显示该元素的专属设置选项。</li>
+                            </ul>
+                        </li>
+                        <li><b>【功能与体验优化】</b>
+                            <ul>
+                                <li><b>上下文关联编辑</b>: 现在，您可以通过点击预览区或左侧图层列表中的任意元素，来让右侧的“样式检查器”自动显示其相关设置。</li>
+                                <li><b>视觉联动高亮</b>: 当您选中一个元素进行编辑时，在预览区和图层列表中，该元素都会出现高亮边框提示，让您始终清楚当前正在编辑的对象。</li>
+                                <li><b>新手教程与帮助</b>: “新手教程”中的版权重要提示已被移至顶部；教程页的关闭按钮文案已改为 “我已了解，开始使用”。</li>
+                                <li><b>隐私与安全声明</b>: 在“帮助”的“使用说明”中，新增了 “🔒 隐私与数据安全” 章节。</li>
+                            </ul>
+                        </li>
+                        <li><b>【问题修复】</b>
+                            <ul>
+                                <li>修复了在“全局卡片样式”中将不透明度滑块拉到 0 时，会导致卡片边框样式也一并消失的 Bug。</li>
+                                <li>修复了在为多列区块启用瀑布流（Masonry）布局后，导出图片时可能发生的元素重叠或布局错乱问题。</li>
+                                <li>优化了暗黑模式下的样式变量，确保主题切换不影响用户设置的阴影开关状态，仅改变阴影的视觉外观以适应深色背景。</li>
+                            </ul>
+                        </li>
+                    </ul>
                     <hr class="separator">
                     <h4>v1.4.0</h4>
                     <ul>
@@ -688,6 +717,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.2/Sortable.min.js"></script>
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    <!-- v1.5.1: Added imagesLoaded for better export reliability -->
+    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
     <script src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
     
     <script>
@@ -734,7 +765,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                 icons: [], 
 
                 init() {
-                    console.log("Blokko 初始化 v1.5.0 ...");
+                    console.log("Blokko 初始化 v1.5.1 ...");
                     this.elements = this.queryElements();
                     this.presets = this.getPresets();
                     this.state = this.getDefaultState();
@@ -743,6 +774,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                     this.bindCoreEvents();
                     this.bindEditorEvents();
                     this.bindPreviewEvents();
+                    this.bindConfirmModalEvents();
                     this.initResizer();
                     this.renderTexturePicker();
                     
@@ -757,7 +789,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                     this.populateFontList(); 
                     this.initAllSortables();
                     this.updateExportSizePreview();
-                    this.loadIcons(); 
+
+                    // v1.5.1: Deferred loading for performance
+                    setTimeout(() => {
+                        this.loadLocalFonts(); 
+                        this.loadIcons(); 
+                    }, 0);
                     
                     this.setSelection({ type: 'global' });
                     this.updateUndoRedoButtons();
@@ -784,6 +821,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                             bio: "这是简介，双击可编辑", bioColor: lightTheme.pBioColor,
                             avatarDataUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23cccccc'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E", 
                             avatarShape: '50%', avatarBorderSize: 4, avatarBorderColor: '#ffffff',
+                            shadowEnabled: true, // v1.5.1: Add shadow toggle for personal info
                             tags: [
                                 { id: this.generateId('t'), icon: 'mdi:palette', text: '设计师' },
                                 { id: this.generateId('t'), icon: 'mdi:github', text: '代码爱好者' }
@@ -810,7 +848,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                                 { id: this.generateId('c'), icon: '', title: "这是双排卡片 1", content: "双击这里进行编辑", opacity: 1.0, followGlobalOpacity: true },
                                 { id: this.generateId('c'), icon: '', title: "这是双排卡片 2", content: "双击这里进行编辑", opacity: 1.0, followGlobalOpacity: true }
                             ]},
-                            { id: this.generateId('b'), type: 'separator', title: "分割线", settings: { style: 'solid', color: '#dddddd', thickness: 1, margin: 20 }},
+                            // v1.5.1: Updated separator default state
+                            { id: this.generateId('b'), type: 'separator', title: "分割线", settings: { style: 'solid', color: '#dddddd', thickness: 1, margin: 20, text: '', textColor: '#555555' }},
                             { id: this.generateId('b'), type: 'image', title: "图片区块", settings: { layout: 'dual', masonryEnabled: false, textColor: '' }, cards: [] },
                             { id: this.generateId('b'), type: 'spacer', title: "留白块", settings: { height: 20 }},
                         ],
@@ -907,10 +946,17 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                         textureGrid: q('#texture-grid'),
                         removeTextureBtn: q('#remove-texture-btn'),
                         texturePickerCloseBtn: q('#texture-picker-close-btn'),
+                        // v1.5.1: Custom confirm modal elements
+                        confirmModal: q('#confirm-modal'),
+                        confirmModalTitle: q('#confirm-modal-title'),
+                        confirmModalMessage: q('#confirm-modal-message'),
+                        confirmModalOkBtn: q('#confirm-modal-ok-btn'),
+                        confirmModalCancelBtn: q('#confirm-modal-cancel-btn'),
                     };
                 },
 
                 bindCoreEvents() {
+                    window.addEventListener('resize', this.debounce(this.relayoutAllMasonry.bind(this), 200));
                     this.elements.themeToggleBtn.addEventListener('click', () => this.toggleTheme());
                     this.elements.addTextBlockBtn.addEventListener('click', () => this.addBlock('text'));
                     this.elements.addImageBlockBtn.addEventListener('click', () => this.addBlock('image'));
@@ -1153,7 +1199,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                         const blockEl = target.closest('.editor-block');
                         if (blockEl) {
                             const blockId = blockEl.dataset.blockId;
-                            if (target.closest('.block-delete-btn')) { if (window.confirm('确定要删除这个区块吗？')) this.deleteBlock(blockId); }
+                            if (target.closest('.block-delete-btn')) { this.deleteBlock(blockId); } // Replaced confirm
                             else if (target.closest('.add-card-btn')) this.addCard(blockId);
                             else if (target.closest('.add-image-btn')) this.addImageCard(blockId);
                             else if (target.closest('.card-delete-btn')) this.deleteCard(blockId, target.closest('.editor-card').dataset.cardId);
@@ -1237,33 +1283,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                                 this.isEditingText = false;
                                 target.removeEventListener('blur', handleEditEnd);
                                 target.removeEventListener('keydown', handleKeydown);
+                                
+                                // v1.5.1 FIX: Don't re-update state, just push history.
+                                // Input event already updated the state in real-time.
+                                this.pushHistory();
 
-                                const value = target.innerText;
-                                const stateKey = target.dataset.stateKey;
-                                const cardKey = target.dataset.cardKey;
-                                const tagId = target.dataset.tagId;
-
-                                if (stateKey) {
-                                    this.updateState(stateKey, value, true);
-                                } else if (cardKey) {
-                                    const cardEl = target.closest('.preview-card, figure');
-                                    const blockEl = target.closest('.preview-block-wrapper');
-                                    if (cardEl && blockEl) {
-                                        const blockId = blockEl.dataset.blockId;
-                                        this.updateCard(blockId, cardEl.dataset.cardId, cardKey, value, true);
-                                        this.renderInspector(); // Re-render inspector to show updated value
-                                        if (this.masonryInstances[blockId]) {
-                                            this.masonryInstances[blockId].layout();
-                                        }
-                                    }
-                                } else if(tagId){
-                                    const newText = value.trim();
-                                    if (newText) {
-                                        this.updateTag(tagId, 'text', newText, true);
-                                    } else {
-                                        this.deleteTag(tagId);
-                                    }
-                                    this.renderInspector();
+                                const blockEl = target.closest('.preview-block-wrapper');
+                                if (blockEl && this.masonryInstances[blockEl.dataset.blockId]) {
+                                    this.masonryInstances[blockEl.dataset.blockId].layout();
                                 }
                             };
                             
@@ -1340,6 +1367,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                             if (newWidth > 350 && newWidth < window.innerWidth * 0.6) {
                                 inspectorPanel.style.width = `${newWidth}px`;
                                 this.updateExportSizePreview();
+                                this.relayoutAllMasonry(); // v1.5.1 FIX
                             }
                         };
                     
@@ -1376,6 +1404,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                     this.elements.previewAvatar.style.borderRadius = info.avatarShape;
                     this.elements.previewAvatar.style.borderWidth = `${info.avatarBorderSize}px`;
                     this.elements.previewAvatar.style.borderColor = info.avatarBorderColor;
+
+                    // v1.5.1: Personal info shadow
+                    this.elements.previewHeader.style.boxShadow = info.shadowEnabled ? 'var(--g-card-shadow)' : 'none';
                     
                     this.elements.previewTagsContainer.innerHTML = (info.tags || [])
                         .map(tag => {
@@ -1495,7 +1526,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
                     panel.innerHTML = html;
                     
-                    // [FIXED] Ensure font list is populated after inspector is rendered
                     if (this.selection.type === 'global') {
                         this.populateFontList();
                     }
@@ -1596,6 +1626,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                                     <div class="form-group"><label>头像上传:</label><input type="file" id="avatar-upload" accept="image/*"></div>
                                     <div class="form-group"><label>头像形状:</label><div class="radio-group"><label><input type="radio" name="avatarShape" value="50%" data-state-key="personalInfo.avatarShape">圆形</label><label><input type="radio" name="avatarShape" value="16px" data-state-key="personalInfo.avatarShape">圆角</label><label><input type="radio" name="avatarShape" value="0px" data-state-key="personalInfo.avatarShape">方形</label></div></div>
                                     <div class="color-control-row"><div class="color-control-group"><label>头像边框(px):</label><input type="range" data-state-key="personalInfo.avatarBorderSize" min="0" max="10" step="1"></div><div class="color-control-group"><label>边框颜色:</label><div class="input-group"><input type="color" data-state-key="personalInfo.avatarBorderColor"><input type="text" class="color-hex-input" data-color-sync-key="personalInfo.avatarBorderColor"><button class="btn btn-default btn-small" data-reset-key="personalInfo.avatarBorderColor">重置</button></div></div></div>
+                                    <div class="form-group checkbox-group" style="margin-top: 10px;"><label><input type="checkbox" data-state-key="personalInfo.shadowEnabled"> 显示个人信息卡片阴影</label></div>
                                 </div>
                             </fieldset>
                         </div>
@@ -1610,6 +1641,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
                 createEditorBlockHTML(block) {
                     let content = '';
+                    const s = (val, def) => val ?? def;
                     const backBtn = this.selection.type !== 'global' ? `<button class="back-to-global-btn">← 返回全局</button>` : '';
                     const masonryCheckboxHTML = `
                         <div class="masonry-toggle-container" style="${['dual', 'triple'].includes(block.settings.layout) ? 'display: block;' : 'display: none;'}">
@@ -1635,11 +1667,20 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                                    <div class="image-card-editors-list">${imageCardsHTML}</div><button class="btn btn-default add-image-btn" style="margin-top: 15px;">➕ 添加图片</button>
                                    <input type="file" class="image-upload-input" multiple accept="image/*" style="display: none;">`;
                     } else if (block.type === 'separator') {
-                        const s = block.settings;
-                        content = `<div class="form-group"><label>样式:</label><div class="radio-group"><label><input type="radio" name="sep-style-${block.id}" data-setting-key="style" value="solid" ${s.style==='solid'?'checked':''}>实线</label><label><input type="radio" name="sep-style-${block.id}" data-setting-key="style" value="dashed" ${s.style==='dashed'?'checked':''}>虚线</label></div></div><div class="color-control-row"><div class="color-control-group"><label>颜色:</label><div class="input-group"><input type="color" data-setting-key="color" value="${s.color}"><input type="text" class="color-hex-input" data-color-sync-key="color" value="${s.color}"></div></div><div class="color-control-group"><label>粗细(px):</label><input type="range" data-setting-key="thickness" min="1" max="10" value="${s.thickness}"></div></div><div class="form-group"><label>垂直间距(px):</label><input type="range" data-setting-key="margin" min="0" max="50" value="${s.margin}"></div>`;
+                        const settings = block.settings;
+                        content = `<div class="form-group"><label>样式:</label><div class="radio-group"><label><input type="radio" name="sep-style-${block.id}" data-setting-key="style" value="solid" ${settings.style==='solid'?'checked':''}>实线</label><label><input type="radio" name="sep-style-${block.id}" data-setting-key="style" value="dashed" ${settings.style==='dashed'?'checked':''}>虚线</label></div></div>
+                        <div class="form-group"><label>中间文字 (可选):</label><input type="text" data-setting-key="text" value="${this.escapeHTML(s(settings.text, ''))}"></div>
+                        <div class="color-control-row">
+                            <div class="color-control-group"><label>线条颜色:</label><div class="input-group"><input type="color" data-setting-key="color" value="${settings.color}"><input type="text" class="color-hex-input" data-color-sync-key="color" value="${settings.color}"></div></div>
+                            <div class="color-control-group"><label>文字颜色:</label><div class="input-group"><input type="color" data-setting-key="textColor" value="${s(settings.textColor, '#555555')}"><input type="text" class="color-hex-input" data-color-sync-key="textColor" value="${s(settings.textColor, '#555555')}"></div></div>
+                        </div>
+                        <div class="color-control-row">
+                            <div class="color-control-group"><label>粗细(px):</label><input type="range" data-setting-key="thickness" min="1" max="10" value="${settings.thickness}"></div>
+                            <div class="color-control-group"><label>垂直间距(px):</label><input type="range" data-setting-key="margin" min="0" max="50" value="${settings.margin}"></div>
+                        </div>`;
                     } else if (block.type === 'spacer') {
-                        const s = block.settings;
-                        content = `<div class="form-group"><label>高度 (px): <span class="spacer-height-value">${s.height}</span></label><input type="range" data-setting-key="height" min="1" max="200" value="${s.height}"></div>`;
+                        const settings = block.settings;
+                        content = `<div class="form-group"><label>高度 (px): <span class="spacer-height-value">${settings.height}</span></label><input type="range" data-setting-key="height" min="1" max="200" value="${settings.height}"></div>`;
                     }
 
                     return `<h3 class="panel-header">区块设置 ${backBtn}</h3><div class="editor-block" data-block-id="${block.id}"><div class="editor-block-header"><input type="text" class="editor-block-title-input" value="${this.escapeHTML(block.title || '')}" placeholder="区块标题 (可编辑)"><div class="block-actions"><button class="btn btn-danger btn-small block-delete-btn">删除</button></div></div><div class="editor-block-content">${content}</div></div>`;
@@ -1661,7 +1702,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                         return `<div class="preview-cards-container ${layoutClass}">${cardsHTML}</div>`;
                     } else if (block.type === 'separator') {
                          const s = block.settings;
-                         return `<div class="separator-preview" style="margin: ${s.margin}px 0;"><div class="separator-preview-line" style="border-top: ${s.thickness}px ${s.style} ${s.color};"></div></div>`;
+                         const textHTML = (s.text || '').trim() ? `<span class="separator-preview-text" style="color:${s.textColor};">${this.escapeHTML(s.text)}</span>` : '';
+                         return `<div class="separator-preview" style="margin: ${s.margin}px 0;">
+                                    <div class="separator-preview-line" style="border-top: ${s.thickness}px ${s.style} ${s.color};"></div>
+                                    ${textHTML}
+                                    ${textHTML ? `<div class="separator-preview-line" style="border-top: ${s.thickness}px ${s.style} ${s.color};"></div>` : ''}
+                                 </div>`;
                     } else if (block.type === 'spacer') {
                         return `<div class="spacer-preview" style="height: ${block.settings.height}px;"></div>`;
                     }
@@ -1803,22 +1849,16 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
                     if (mainKey === 'personalInfo') {
                         this.renderPersonalInfo();
-                        // [FIXED] Do not re-render inspector on input
-                        // if (this.selection.type === 'personalInfo') this.renderInspector();
                     } else if (mainKey === 'pageStyles' || mainKey === 'globalCardStyles') {
                         if (mainKey === 'globalCardStyles') this.updateGlobalCardStyleVars();
                         this.renderPageStyles();
                         this.renderPreviewBlocks();
-                        // [FIXED] Do not re-render inspector on input
-                        // if (this.selection.type === 'global') this.renderInspector();
                     } else if (mainKey === 'blocks') {
                         const blockIndex = parseInt(parts[1]);
                         const block = this.state.blocks[blockIndex];
                         if (!block) return;
                         const blockId = block.id;
                         this.renderPreviewBlockById(blockId);
-                        // [FIXED] Do not re-render inspector on input
-                        // if (this.selection.id === blockId) this.renderInspector();
                     }
                 },
 
@@ -2085,7 +2125,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                         if (this.historyIndex < this.history.length - 1) { 
                             this.history = this.history.slice(0, this.historyIndex + 1); 
                         } 
-                        this.history.push(this.deepClone(this.state)); 
+                        const latestState = this.deepClone(this.state);
+                        // Prevent pushing identical states
+                        if (JSON.stringify(latestState) === JSON.stringify(this.history[this.historyIndex])) return;
+
+                        this.history.push(latestState); 
                         if (this.history.length > 50) this.history.shift(); 
                         this.historyIndex = this.history.length - 1;
                         this.updateUndoRedoButtons(); 
@@ -2126,11 +2170,17 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                         try {
                             const reader = new FileReader(); 
                             reader.onload = async e => {
-                                const compressedUrl = await this.compressImage(e.target.result, 0.85, 1200);
-                                if (['avatar', 'pageBg', 'cardBg', 'imageCard'].includes(target)) {
-                                    this.showCropper(compressedUrl, { type: target, ...cardInfo }); 
-                                }
-                                this.hideLoading();
+                                this.compressImage(e.target.result, 0.85, 1200)
+                                    .then(compressedUrl => {
+                                        if (['avatar', 'pageBg', 'cardBg', 'imageCard'].includes(target)) {
+                                            this.showCropper(compressedUrl, { type: target, ...cardInfo }); 
+                                        }
+                                        this.hideLoading();
+                                    })
+                                    .catch(err => {
+                                        this.showErrorModal('图片处理失败', err.message);
+                                        this.hideLoading();
+                                    });
                             }; 
                             reader.readAsDataURL(file); 
                         } catch(err) {
@@ -2223,7 +2273,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                 
                 async loadLocalFonts(){
                      if (!window.queryLocalFonts) {
-                            this.showErrorModal('功能不支持', '您的浏览器不支持访问本地字体。请尝试使用“上传字体”功能。');
+                            this.showToast('浏览器不支持访问本地字体', 'info');
                             return;
                         }
                         try {
@@ -2327,6 +2377,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
                         select.innerHTML = html;
                         select.value = currentFont;
+                        
+                        // v1.5.1: Apply font preview styles
+                        select.querySelectorAll('option').forEach(option => {
+                            if (option.value) {
+                                option.style.fontFamily = `'${option.value}', Noto Sans SC, sans-serif`;
+                            }
+                        });
                 },
                 
                 getFontCategory(font){
@@ -2393,7 +2450,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                         reader.onerror = reject;
                         reader.readAsArrayBuffer(file);
                     })},
-                compressImage(dataUrl, quality = 0.8, maxWidth = 1024){return new Promise(resolve => {
+                compressImage(dataUrl, quality = 0.8, maxWidth = 1024){return new Promise((resolve, reject) => {
                         const img = new Image();
                         img.onload = () => {
                             let { width, height } = img;
@@ -2408,6 +2465,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                             ctx.drawImage(img, 0, 0, width, height);
                             resolve(canvas.toDataURL('image/jpeg', quality));
                         };
+                        // v1.5.1 FIX: Handle image load errors
+                        img.onerror = (err) => reject(new Error('图片加载失败，请检查文件是否损坏。'));
                         img.src = dataUrl;
                     })},
                 
@@ -2483,7 +2542,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                     const file = e.target.files[0]; 
                         if (!file) return;
 
-                        if (!window.confirm('导入配置将覆盖当前所有内容，确定要继续吗？')) {
+                        const confirmed = await this.showConfirmModal('导入配置', '导入配置将覆盖当前所有内容，此操作不可撤销，确定要继续吗？');
+                        if (!confirmed) {
                             e.target.value = '';
                             return;
                         }
@@ -2620,8 +2680,25 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                         }
                         cardInner.style.background = backgroundStyle;
                         cardInner.style.border = computed.border;
-                        cardInner.style.boxShadow = computed.boxShadow;
+                        // v1.5.1 FIX: Manually apply shadow for export
+                        if (this.state.globalCardStyles.shadowEnabled) {
+                             cardInner.style.boxShadow = document.documentElement.classList.contains('dark-mode')
+                                ? '0 4px 12px rgba(0,0,0,0.25)'
+                                : '0 4px 12px rgba(0,0,0,0.08)';
+                        } else {
+                            cardInner.style.boxShadow = 'none';
+                        }
                     });
+
+                    // v1.5.1 FIX: Manually apply personal info shadow for export
+                    if (this.state.personalInfo.shadowEnabled) {
+                        const headerEl = clone.querySelector('.preview-header');
+                        if(headerEl) {
+                             headerEl.style.boxShadow = document.documentElement.classList.contains('dark-mode')
+                                ? '0 4px 12px rgba(0,0,0,0.25)'
+                                : '0 4px 12px rgba(0,0,0,0.08)';
+                        }
+                    }
                     
                     style.innerHTML += `#${clone.id} .preview-card-inner::before, #${clone.id} .preview-card-inner::after { content: none !important; background: none !important; display: none !important; }`;
                 },
@@ -2670,9 +2747,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                         clone.style.width = `${sourceWidth}px`;
                         
                         document.body.appendChild(clone);
-                        await this.sleep(100);
 
-                        // v1.5.0 Bug Fix: Force re-layout for Masonry
                         this.showLoading('正在计算瀑布流布局...');
                         const masonryBlocks = this.state.blocks.filter(b => b.settings.masonryEnabled);
                         if (masonryBlocks.length > 0) {
@@ -2685,12 +2760,15 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                                     msnry.layout();
                                 }
                             }
-                            await this.sleep(200); // Give it a bit more time to settle
                         }
                         
                         this.showLoading('正在处理样式 (烘焙)...');
                         await this.bakeOverlaysForExport(clone);
-                        await this.sleep(100);
+
+                        this.showLoading('等待图片加载...');
+                        await new Promise((resolve, reject) => {
+                            imagesLoaded(clone, { background: true }).on('always', resolve).on('fail', reject);
+                        });
 
                         this.showLoading('正在渲染图片...');
                         const canvas = await html2canvas(clone, { scale: scale, useCORS: true, backgroundColor: null, logging: false });
@@ -2844,14 +2922,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                             r.setProperty('--active-card-shadow', `${borderShadow}, ${regularShadow}`);
                             r.setProperty('--active-card-border', 'none');
                         } else {
-                            r.setProperty('--active-card-border', g.borderWidth > 0 ? `${g.borderWidth}px ${g.borderStyle} ${g.borderColor}` : 'none');
+                            r.setProperty('--active-card-border', g.borderWidth > 0 ? `${g.borderStyle} ${g.borderWidth}px ${g.borderColor}` : 'none');
                             r.setProperty('--active-card-shadow', regularShadow);
                         }
                 },
                 
                 initAllSortables(){
                     this.initSortableLayers();
-                    // Card sortables are now initialized dynamically when their block is selected
                 },
 
                 initSortableLayers(){
@@ -2859,9 +2936,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                     this.sortableLayers = new Sortable(this.elements.layerList, {
                         animation: 150,
                         ghostClass: 'sortable-ghost',
-                        filter: 'hr, .layer-item[data-type="personalInfo"]', // Make personal info and hr un-draggable
+                        filter: 'hr, .layer-item[data-type="personalInfo"]',
                         onEnd: e => {
-                            const oldIndex = e.oldIndex - 2; // -2 to account for static personal info and hr
+                            const oldIndex = e.oldIndex - 2;
                             const newIndex = e.newIndex - 2;
                             if (oldIndex === newIndex) return;
 
@@ -2870,7 +2947,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                             this.state.blocks.splice(newIndex, 0, moved);
                             this.debouncedSaveToLocal();
                             
-                            // Re-render to reflect new order
                             this.renderLayerPanel();
                             this.renderPreviewBlocks();
                         }
@@ -2910,6 +2986,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                         }
                     }
                 },
+                relayoutAllMasonry() {
+                    Object.keys(this.masonryInstances).forEach(blockId => {
+                        if (this.masonryInstances[blockId]) {
+                            this.masonryInstances[blockId].layout();
+                        }
+                    });
+                    this.updateExportSizePreview();
+                },
                 
                 togglePanelDrawer(panelId){
                     if (panelId === false) { // Close all
@@ -2922,14 +3006,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                     const isOpen = panel.classList.toggle('is-open');
                     this.elements.body.classList.toggle('panels-open', isOpen || this.elements.layerPanel.classList.contains('is-open') || this.elements.inspectorPanel.classList.contains('is-open'));
                     
-                    // Close other panel if opening one
                     if(isOpen) {
                         if (panelId === 'layer-panel') this.elements.inspectorPanel.classList.remove('is-open');
                         if (panelId === 'inspector-panel') this.elements.layerPanel.classList.remove('is-open');
                     }
                 },
-                resetToDefault() {
-                    if (window.confirm('警告：此操作将清空您所有的内容和样式设置，并恢复到初始模板。此过程不可撤销，确定要继续吗？')) {
+                async resetToDefault() {
+                    const confirmed = await this.showConfirmModal('恢复默认模板', '警告：此操作将清空您所有的内容和样式设置，并恢复到初始模板。此过程不可撤销，确定要继续吗？');
+                    if (confirmed) {
                         localStorage.removeItem('blokkoState');
                         this.state = this.getDefaultState();
                         this.history = [this.deepClone(this.state)];
@@ -3000,6 +3084,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                 async loadIcons(){
                      this.showLoading('正在加载图标库...');
                      try {
+                         // Simulate network request for iconify, let's assume it's fast enough
                          await this.sleep(100);
                          this.showToast('图标库加载完成', 'info');
                      } catch(e) {
@@ -3137,6 +3222,30 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                         document.querySelector(`.preview-block-wrapper[data-block-id="${id}"]`)?.classList.add('selected');
                     }
                 },
+                // v1.5.1: Custom Confirm Modal Logic
+                bindConfirmModalEvents() {
+                    // This method is just for setup, the core logic is in showConfirmModal
+                },
+                showConfirmModal(title, message) {
+                    return new Promise(resolve => {
+                        this.elements.confirmModalTitle.textContent = title;
+                        this.elements.confirmModalMessage.textContent = message;
+                        this.elements.confirmModal.classList.add('visible');
+
+                        const handleOk = () => {
+                            this.elements.confirmModal.classList.remove('visible');
+                            resolve(true);
+                        };
+
+                        const handleCancel = () => {
+                            this.elements.confirmModal.classList.remove('visible');
+                            resolve(false);
+                        };
+                        
+                        this.elements.confirmModalOkBtn.addEventListener('click', handleOk, { once: true });
+                        this.elements.confirmModalCancelBtn.addEventListener('click', handleCancel, { once: true });
+                    });
+                },
 
                 hexToRgba(hex, alpha=1){
                     if(!hex || parseFloat(alpha) === 0) return 'transparent';
@@ -3191,6 +3300,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                     this.setSelection({ type: 'block', id: newBlock.id });
                 },
                 async deleteBlock(blockId) {
+                    const confirmed = await this.showConfirmModal('删除区块', '确定要删除这个区块吗？此操作不可撤销。');
+                    if (!confirmed) return;
+
                     this.pushHistory();
                     this.destroyMasonryForBlock(blockId);
                     this.state.blocks = this.state.blocks.filter(b => b.id !== blockId);
@@ -3198,29 +3310,29 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                     
                     if (this.selection.type === 'block' && this.selection.id === blockId) {
                         this.setSelection({type: 'global'});
-                    } else {
-                        // Re-render layer panel if a different block was selected
-                        this.renderLayerPanel();
-                    }
-                    
+                    } else
+					  this.renderLayerPanel();
                     this.renderPreviewBlocks();
                     this.showToast('区块已删除', 'info');
                 },
 
                 // Debug Mode
                 activateDebugMode() {
-                    if (window.confirm('即将进入调试模式，这将随机化当前所有设置并替换内容，此操作不可撤销。是否继续？')) {
-                        this.showLoading('正在生成随机数据...');
-                        this.state = this.generateRandomState();
-                        this.history = [this.deepClone(this.state)];
-                        this.historyIndex = 0;
-                        this.setSelection({type: 'global'});
-                        this.renderAll(true);
-                        this.syncAllControls();
-                        this.updateUndoRedoButtons();
-                        this.hideLoading();
-                        this.showToast('调试模式已激活，所有设置已随机化！', 'success');
-                    }
+                    this.showConfirmModal('进入调试模式', '此操作将随机化当前所有设置并替换内容，不可撤销。是否继续？')
+                        .then(confirmed => {
+                            if (confirmed) {
+                                this.showLoading('正在生成随机数据...');
+                                this.state = this.generateRandomState();
+                                this.history = [this.deepClone(this.state)];
+                                this.historyIndex = 0;
+                                this.setSelection({type: 'global'});
+                                this.renderAll(true);
+                                this.syncAllControls();
+                                this.updateUndoRedoButtons();
+                                this.hideLoading();
+                                this.showToast('调试模式已激活，所有设置已随机化！', 'success');
+                            }
+                        });
                 },
                 generateRandomState() {
                     const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
@@ -3289,7 +3401,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                                 newBlock = { id: this.generateId('b'), type: 'image', title: `随机图片区块 ${i+1}`, settings: { layout: randChoice(['single', 'dual', 'triple']), masonryEnabled: randBool(), textColor: randColor() }, cards: [] }; // No images
                                 break;
                             case 'separator':
-                                newBlock = { id: this.generateId('b'), type: 'separator', title: `随机分割线 ${i+1}`, settings: { style: randChoice(['solid', 'dashed']), color: randColor(), thickness: rand(1, 5), margin: rand(10, 40) }};
+                                newBlock = { id: this.generateId('b'), type: 'separator', title: `随机分割线 ${i+1}`, settings: { style: randChoice(['solid', 'dashed']), color: randColor(), thickness: rand(1, 5), margin: rand(10, 40), text: `分隔文本 ${i+1}`, textColor: randColor() }};
                                 break;
                             case 'spacer':
                                 newBlock = { id: this.generateId('b'), type: 'spacer', title: `随机留白 ${i+1}`, settings: { height: rand(20, 100) }};
