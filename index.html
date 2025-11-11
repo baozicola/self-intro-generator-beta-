@@ -126,7 +126,7 @@
             align-items: center;
             justify-content: space-between;
         }
-        .back-to-global-btn {
+        。back-to-global-btn {
             font-size: 0.9rem;
             font-weight: normal;
             color: var(--text-action);
@@ -135,10 +135,10 @@
             border: none;
             padding: 4px 8px;
         }
-        .back-to-global-btn:hover { text-decoration: underline; }
+        。back-to-global-btn:hover { text-decoration: underline; }
 
-        .layer-item-container { margin-bottom: 5px; }
-        .layer-list .layer-item {
+        。layer-item-container { margin-bottom: 5px; }
+        。layer-list .layer-item {
             display: flex;
             align-items: center;
             gap: 4px;
@@ -2111,6 +2111,10 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
                         if (mainKey === 'globalCardStyles') this.updateGlobalCardStyleVars();
                         this.renderPageStyles();
                         this.renderPreviewBlocks();
+						// HOTFIX: 当页面样式（如背景图）更新时，需要同步检查器UI以显示/隐藏相关控件。
+                        if (this.selection.type === 'global') {
+                            this.syncAllControls();
+                        }
                     } else if (mainKey === 'blocks') {
                         // 对区块本身或卡片列表的增删改，依然需要重绘
                         this.renderLayerPanel();
@@ -3927,4 +3931,4 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         });
     </script>
 </body>
-</html>
+			</html>
