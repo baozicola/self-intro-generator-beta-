@@ -4324,7 +4324,6 @@
                     const mobileExportToggle = this.elements.inspectorPanel.querySelector('#mobile-export-toggle');
                     const customWidthToggle = this.elements.inspectorPanel.querySelector('#custom-width-toggle');
                     const hdExportToggle = this.elements.inspectorPanel.querySelector('#hd-export-toggle');
-                    const s = this.state.exportSettings;
 
                     const isMobileExport = mobileExportToggle.checked;
                     const isCustomWidth = customWidthToggle.checked;
@@ -4412,7 +4411,7 @@
                         // ...
 clone.style.width = `${sourceWidth}px`;
 clone.style.maxWidth = 'none';
-if (isCustomWidth && !s.lockAspectRatio) {
+if (isCustomWidth && !this.state.exportSettings.lockAspectRatio) {
     const cloneHeight = targetHeight / scale;
     clone.style.height = `${cloneHeight}px`;
     clone.style.overflow = 'hidden'; 
