@@ -4446,8 +4446,8 @@
                             backgroundColor: null,
                             logging: false,
                             width: sourceWidth,
-                            // NEW: Use custom height for unlocked aspect ratio
-                            height: (isCustomWidth && !this.state.exportSettings.lockAspectRatio) ? targetHeight / scale : sourceHeight,
+                            // 修复：直接使用测量到的高度，因为预览区已提前调整好宽高比
+                            height: sourceHeight,
                             windowWidth: sourceWidth,
                             windowHeight: sourceHeight,
                         });
