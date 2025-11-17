@@ -4311,188 +4311,186 @@
                 },
 
                 async exportPNG() {
-    try {
-        this.showLoading('加载导出组件...');
-        await this.loadScript('https://cdn.bootcdn.net/ajax/libs/html2canvas/1.4.1/html2canvas.min.js');
-    } catch (error) {
-        this.hideLoading();
-        this.showErrorModal('加载失败', '导出功能所需组件加载失败，请检查你的网络连接。');
-        return;
-    }
-    this.showLoading('正在准备导出...');
+                    try {
+                        this.showLoading('加载导出组件...');
+                        await this.loadScript('https://cdn.bootcdn.net/ajax/libs/html2canvas/1.4.1/html2canvas.min.js');
+                    } catch (error) {
+                        this.hideLoading();
+                        this.showErrorModal('加载失败', '导出功能所需组件加载失败，请检查你的网络连接。');
+                        return;
+                    }
+                    this.showLoading('正在准备导出...');
 
-    const mobileExportToggle = this.elements.inspectorPanel.querySelector('#mobile-export-toggle');
-    const customWidthToggle = this.elements.inspectorPanel.querySelector('#custom-width-toggle');
-    const hdExportToggle = this.elements.inspectorPanel.querySelector('#hd-export-toggle');
+                    const mobileExportToggle = this.elements.inspectorPanel.querySelector('#mobile-export-toggle');
+                    const customWidthToggle = this.elements.inspectorPanel.querySelector('#custom-width-toggle');
+                    const hdExportToggle = this.elements.inspectorPanel.querySelector('#hd-export-toggle');
 
-    const isMobileExport = mobileExportToggle.checked;
-    const isCustomWidth = customWidthToggle.checked;
-    const isHD = hdExportToggle.checked;
+                    const isMobileExport = mobileExportToggle.checked;
+                    const isCustomWidth = customWidthToggle.checked;
+                    const isHD = hdExportToggle.checked;
 
-    const sourceElement = this.elements.previewWrapper;
+                    const sourceElement = this.elements.previewWrapper;
+                    const sourceWidth = sourceElement.offsetWidth;
+                    const sourceHeight = sourceElement.offsetHeight;
 
-    const exportRounded = this.elements.inspectorPanel.querySelector('#export-rounded-corners-toggle').checked;
-    const cornerRadius = parseInt(this.elements.inspectorPanel.querySelector('#export-corner-radius-input').value, 10) || 20;
+                    let targetWidth, targetHeight;
 
-    let clone = null;
+                    if (isMobileExport) {
+                        targetWidth = 1200;
+                        targetHeight = Math.round(targetWidth * (sourceHeight / sourceWidth));
+                    } else if (isCustomWidth) {
+                        targetWidth = this.state.exportSettings.customWidth;
+                        targetHeight = this.state.exportSettings.lockAspectRatio
+                            ? Math.round(targetWidth * (sourceHeight / sourceWidth))
+                            : this.state.exportSettings.customHeight;
+                    } else if (isHD) {
+                        targetWidth = 1800;
+                        targetHeight = Math.round(targetWidth * (sourceHeight / sourceWidth));
+                    } else {
+                        targetWidth = 1200;
+                        targetHeight = Math.round(targetWidth * (sourceHeight / sourceWidth));
+                    }
 
-    const wasLayerOpen = this.elements.layerPanel.classList.contains('is-open');
-    const wasInspectorOpen = this.elements.inspectorPanel.classList.contains('is-open');
-    if (wasLayerOpen || wasInspectorOpen) {
-        this.togglePanelDrawer(false);
-        await this.sleep(100);
-    }
+                    const scale = targetWidth / sourceWidth;
+                    const renderSourceHeight = targetHeight / scale;
 
-    document.body.classList.add('export-mode');
-    if (isMobileExport) {
-        document.body.classList.add('mobile-export-preview-mode');
-    }
+                    const exportRounded = this.elements.inspectorPanel.querySelector('#export-rounded-corners-toggle').checked;
+                    const cornerRadius = parseInt(this.elements.inspectorPanel.querySelector('#export-corner-radius-input').value, 10) || 20;
 
-    try {
-        clone = sourceElement.cloneNode(true);
-        clone.id = `export-clone-${Date.now()}`;
+                    let clone = null;
 
-        const showAttribution = this.elements.inspectorPanel.querySelector('#export-attribution-toggle').checked;
-        if (showAttribution) {
-            const attr = this.state.pageStyles.pageBgImageAttribution;
-            let attrHTML = '';
-            if (attr && attr.user) {
-                attrHTML = `Photo by ${this.escapeHTML(attr.user)} on Pixabay / `;
-            }
-            attrHTML += `Made with Blokko`;
+                    const wasLayerOpen = this.elements.layerPanel.classList.contains('is-open');
+                    const wasInspectorOpen = this.elements.inspectorPanel.classList.contains('is-open');
+                    if (wasLayerOpen || wasInspectorOpen) {
+                        this.togglePanelDrawer(false);
+                        await this.sleep(100);
+                    }
 
-            const attrDiv = document.createElement('div');
-            attrDiv.style.cssText = `
-                position: absolute;
-                bottom: 10px;
-                right: 15px;
-                font-size: 10px;
-                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-                color: rgba(255, 255, 255, 0.7);
-                background-color: rgba(0, 0, 0, 0.3);
-                padding: 3px 6px;
-                border-radius: 4px;
-                z-index: 100;
-                text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-            `;
-            attrDiv.textContent = attrHTML;
-            clone.appendChild(attrDiv);
-        }
+                    document.body.classList.add('export-mode');
 
-        const style = document.createElement('style');
-        style.innerHTML = `#${clone.id}, #${clone.id} * { transition: none !important; animation: none !important; } #${clone.id} .preview-card:hover .preview-card-inner { transform: none !important; box-shadow: var(--active-card-shadow, none) !important; }`;
-        clone.appendChild(style);
+                    try {
+                        clone = sourceElement.cloneNode(true);
+                        clone.id = `export-clone-${Date.now()}`;
 
-        clone.style.position = 'absolute';
-        clone.style.left = '-9999px';
-        clone.style.top = '0px';
-        clone.style.borderRadius = '0';
-        clone.style.maxWidth = 'none';
-        
-        if (!isMobileExport) {
-            clone.style.width = `${sourceElement.offsetWidth}px`;
-        }
-        
-        document.body.appendChild(clone);
-        await this.sleep(100);
+                        const showAttribution = this.elements.inspectorPanel.querySelector('#export-attribution-toggle').checked;
+                        if (showAttribution) {
+                            const attr = this.state.pageStyles.pageBgImageAttribution;
+                            let attrHTML = '';
+                            if (attr && attr.user) {
+                                attrHTML = `Photo by ${this.escapeHTML(attr.user)} on Pixabay / `;
+                            }
+                            attrHTML += `Made with Blokko`;
 
-        const cloneWidth = clone.offsetWidth;
-        const cloneHeight = clone.scrollHeight;
+                            const attrDiv = document.createElement('div');
+                            attrDiv.style.cssText = `
+                                position: absolute;
+                                bottom: 10px;
+                                right: 15px;
+                                font-size: 10px;
+                                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                                color: rgba(255, 255, 255, 0.7);
+                                background-color: rgba(0, 0, 0, 0.3);
+                                padding: 3px 6px;
+                                border-radius: 4px;
+                                z-index: 100;
+                                text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+                            `;
+                            attrDiv.textContent = attrHTML;
+                            clone.appendChild(attrDiv);
+                        }
 
-        let targetWidth, targetHeight;
+                        const style = document.createElement('style');
+                        style.innerHTML = `#${clone.id}, #${clone.id} * { transition: none !important; animation: none !important; } #${clone.id} .preview-card:hover .preview-card-inner { transform: none !important; box-shadow: var(--active-card-shadow, none) !important; }`;
+                        clone.appendChild(style);
 
-        if (isMobileExport) {
-            targetWidth = 1200;
-            targetHeight = Math.round(targetWidth * (cloneHeight / cloneWidth));
-        } else if (isCustomWidth) {
-            targetWidth = this.state.exportSettings.customWidth;
-            targetHeight = this.state.exportSettings.lockAspectRatio
-                ? Math.round(targetWidth * (cloneHeight / cloneWidth))
-                : this.state.exportSettings.customHeight;
-        } else if (isHD) {
-            targetWidth = 1800;
-            targetHeight = Math.round(targetWidth * (cloneHeight / cloneWidth));
-        } else {
-            targetWidth = 1200;
-            targetHeight = Math.round(targetWidth * (cloneHeight / cloneWidth));
-        }
+                        clone.style.position = 'absolute';
+                        clone.style.left = '-9999px';
+                        clone.style.top = '0px';
+                        clone.style.borderRadius = '0';
+                        clone.style.maxWidth = 'none';
 
-        const scale = targetWidth / cloneWidth;
+                        clone.style.width = `${sourceWidth}px`;
+                        clone.style.height = `${renderSourceHeight}px`;
 
-        this.showLoading('正在计算瀑布流布局...');
-        const masonryBlocks = this.state.blocks.filter(b => b.settings.masonryEnabled);
-        if (masonryBlocks.length > 0) {
-            await this.loadScript('https://cdn.bootcdn.net/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js');
-            for (const block of masonryBlocks) {
-                const containerInClone = clone.querySelector(`.preview-block-wrapper[data-block-id="${block.id}"] .preview-cards-container`);
-                if (containerInClone) {
-                    containerInClone.classList.add('masonry-active');
-                    const itemSelector = block.type === 'text' ? '.preview-card' : 'figure';
-                    const msnry = new Masonry(containerInClone, { itemSelector: itemSelector, gutter: 15 });
-                    msnry.layout();
-                }
-            }
-            await this.sleep(200);
-        }
+                        document.body.appendChild(clone);
+                        await this.sleep(100);
 
-        this.showLoading('正在处理样式 (烘焙)...');
-        await this.bakeOverlaysForExport(clone);
-        await this.sleep(100);
+                        this.showLoading('正在计算瀑布流布局...');
+                        const masonryBlocks = this.state.blocks.filter(b => b.settings.masonryEnabled);
+                        if (masonryBlocks.length > 0) {
+                            await this.loadScript('https://cdn.bootcdn.net/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js');
+                            for (const block of masonryBlocks) {
+                                const containerInClone = clone.querySelector(`.preview-block-wrapper[data-block-id="${block.id}"] .preview-cards-container`);
+                                if (containerInClone) {
+                                    containerInClone.classList.add('masonry-active');
+                                    const itemSelector = block.type === 'text' ? '.preview-card' : 'figure';
+                                    const msnry = new Masonry(containerInClone, { itemSelector: itemSelector, gutter: 15 });
+                                    msnry.layout();
+                                }
+                            }
+                            await this.sleep(200);
+                        }
 
-        this.showLoading('正在渲染图片...');
+                        this.showLoading('正在处理样式 (烘焙)...');
+                        await this.bakeOverlaysForExport(clone);
+                        await this.sleep(100);
 
-        const canvas = await html2canvas(clone, {
-            scale: scale,
-            useCORS: true,
-            backgroundColor: null,
-            logging: false,
-        });
+                        this.showLoading('正在渲染图片...');
 
-        let finalCanvas = canvas;
-        if (exportRounded && cornerRadius > 0) {
-            this.showLoading('正在应用圆角...');
-            const roundedCanvas = document.createElement('canvas');
-            roundedCanvas.width = finalCanvas.width;
-            roundedCanvas.height = finalCanvas.height;
-            const ctx = roundedCanvas.getContext('2d');
-            const scaledRadius = cornerRadius * scale;
+                        const canvas = await html2canvas(clone, {
+                            scale: scale,
+                            useCORS: true,
+                            backgroundColor: null,
+                            logging: false,
+                            width: sourceWidth,
+                            height: renderSourceHeight,
+                            windowWidth: sourceWidth,
+                            windowHeight: renderSourceHeight,
+                        });
+                        
+                        let finalCanvas = canvas;
 
-            ctx.beginPath();
-            ctx.moveTo(scaledRadius, 0);
-            ctx.lineTo(roundedCanvas.width - scaledRadius, 0);
-            ctx.arcTo(roundedCanvas.width, 0, roundedCanvas.width, scaledRadius, scaledRadius);
-            ctx.lineTo(roundedCanvas.width, roundedCanvas.height - scaledRadius);
-            ctx.arcTo(roundedCanvas.width, roundedCanvas.height, roundedCanvas.width - scaledRadius, roundedCanvas.height, scaledRadius);
-            ctx.lineTo(scaledRadius, roundedCanvas.height);
-            ctx.arcTo(0, roundedCanvas.height, 0, roundedCanvas.height - scaledRadius, scaledRadius);
-            ctx.lineTo(0, scaledRadius);
-            ctx.arcTo(0, 0, scaledRadius, 0, scaledRadius);
-            ctx.closePath();
-            ctx.clip();
-            ctx.drawImage(finalCanvas, 0, 0);
-            finalCanvas = roundedCanvas;
-        }
+                        if (exportRounded && cornerRadius > 0) {
+                            this.showLoading('正在应用圆角...');
+                            const roundedCanvas = document.createElement('canvas');
+                            roundedCanvas.width = finalCanvas.width;
+                            roundedCanvas.height = finalCanvas.height;
+                            const ctx = roundedCanvas.getContext('2d');
+                            const scaledRadius = cornerRadius * scale;
 
-        const dataUrl = finalCanvas.toDataURL('image/png');
-        const filename = this.generateFilename('Image') + '.png';
-        this.showDownloadModal(dataUrl, filename, '图片已生成');
+                            ctx.beginPath();
+                            ctx.moveTo(scaledRadius, 0);
+                            ctx.lineTo(roundedCanvas.width - scaledRadius, 0);
+                            ctx.arcTo(roundedCanvas.width, 0, roundedCanvas.width, scaledRadius, scaledRadius);
+                            ctx.lineTo(roundedCanvas.width, roundedCanvas.height - scaledRadius);
+                            ctx.arcTo(roundedCanvas.width, roundedCanvas.height, roundedCanvas.width - scaledRadius, roundedCanvas.height, scaledRadius);
+                            ctx.lineTo(scaledRadius, roundedCanvas.height);
+                            ctx.arcTo(0, roundedCanvas.height, 0, roundedCanvas.height - scaledRadius, scaledRadius);
+                            ctx.lineTo(0, scaledRadius);
+                            ctx.arcTo(0, 0, scaledRadius, 0, scaledRadius);
+                            ctx.closePath();
+                            ctx.clip();
+                            ctx.drawImage(finalCanvas, 0, 0);
+                            finalCanvas = roundedCanvas;
+                        }
 
-    } catch (err) {
-        console.error("PNG 导出失败:", err);
-        this.showErrorModal('导出失败', `生成图片时发生错误: ${err.message}.`);
-    } finally {
-        if (clone && clone.parentNode) {
-            clone.parentNode.removeChild(clone);
-        }
-        document.body.classList.remove('export-mode');
-        if (isMobileExport) {
-            document.body.classList.remove('mobile-export-preview-mode');
-        }
-        if (wasLayerOpen) this.togglePanelDrawer('layer-panel');
-        if (wasInspectorOpen) this.togglePanelDrawer('inspector-panel');
-        this.hideLoading();
-    }
-},
+                        const dataUrl = finalCanvas.toDataURL('image/png');
+                        const filename = this.generateFilename('Image') + '.png';
+                        this.showDownloadModal(dataUrl, filename, '图片已生成');
+
+                    } catch (err) {
+                        console.error("PNG 导出失败:", err);
+                        this.showErrorModal('导出失败', `生成图片时发生错误: ${err.message}.`);
+                    } finally {
+                        if (clone && clone.parentNode) {
+                            clone.parentNode.removeChild(clone);
+                        }
+                        if (wasLayerOpen) this.togglePanelDrawer('layer-panel');
+                        if (wasInspectorOpen) this.togglePanelDrawer('inspector-panel');
+                        document.body.classList.remove('export-mode');
+                        this.hideLoading();
+                    }
+                },
 
                 // NEW: Update attribution link visibility and content
                 updateAttributionLink() {
